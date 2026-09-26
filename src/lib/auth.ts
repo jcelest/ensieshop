@@ -52,6 +52,6 @@ export async function isAdminAuthenticated(): Promise<boolean> {
 export { SESSION_COOKIE };
 
 export function verifyAdminPassword(password: string): boolean {
-  const expected = process.env.ADMIN_PASSWORD || "200Orders!";
+  const expected = process.env.ADMIN_PASSWORD || "Ensie1";
   return password === expected;
 }

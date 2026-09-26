@@ -410,7 +410,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
               className="w-full text-sm text-white/60 file:mr-4 file:border file:border-white/20 file:bg-black file:px-4 file:py-2 file:text-sm file:text-white disabled:opacity-40"
             />
             <p className="mt-2 text-xs text-white/40">
-              Extra angles such as back shots. Color covers are uploaded above — do not re-upload
+              Extra angles such as back shots. Color covers are uploaded above - do not re-upload
               those here.
             </p>
           </div>
@@ -433,7 +433,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                     onClick={() => removeExisting(index)}
                     className="absolute right-1 top-1 bg-black/80 px-1.5 py-0.5 text-xs text-red-400 hover:text-red-300"
                   >
-                    ×
+                    x
                   </button>
                 </div>
               ))}
@@ -456,7 +456,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                     onClick={() => removeNew(img.id)}
                     className="absolute right-1 top-1 bg-black/80 px-1.5 py-0.5 text-xs text-red-400 hover:text-red-300"
                   >
-                    ×
+                    x
                   </button>
                 </div>
               ))}

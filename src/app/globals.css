@@ -479,3 +479,75 @@ input[type="radio"]:disabled {
   border-color: var(--color-de-primary);
   box-shadow: 0 0 0 2px rgba(var(--color-de-primary-rgb), 0.16);
 }
+
+.admin-surface .slogan-text {
+  font-family: var(--font-body), system-ui, sans-serif;
+  text-transform: none;
+}
+
+.admin-surface [class*="bg-black"] {
+  background-color: #ffffff !important;
+}
+
+.admin-surface [class*="bg-white/5"],
+.admin-surface [class*="bg-white/10"] {
+  background-color: #f7fbfa !important;
+}
+
+.admin-surface [class*="border-white/"] {
+  border-color: #dce9e5 !important;
+}
+
+.admin-surface .text-white {
+  color: var(--color-de-ink) !important;
+}
+
+.admin-surface [class~="bg-[var(--color-de-primary)]"] {
+  color: #ffffff !important;
+}
+
+.admin-surface [class*="text-white/"] {
+  color: var(--color-de-muted) !important;
+}
+
+.admin-surface [class*="tracking-widest"] {
+  letter-spacing: 0 !important;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.admin-surface input:not([type="checkbox"]):not([type="radio"]),
+.admin-surface textarea,
+.admin-surface select {
+  border-color: #dce9e5 !important;
+  background-color: #ffffff !important;
+  color: var(--color-de-ink) !important;
+  outline: none;
+}
+
+.admin-surface input::placeholder,
+.admin-surface textarea::placeholder {
+  color: #8ba09c !important;
+}
+
+.admin-surface input:not([type="checkbox"]):not([type="radio"]):focus,
+.admin-surface textarea:focus,
+.admin-surface select:focus {
+  border-color: var(--color-de-primary) !important;
+  box-shadow: 0 0 0 2px rgba(var(--color-de-primary-rgb), 0.16);
+}
+
+.admin-surface input[type="file"] {
+  color: var(--color-de-muted) !important;
+}
+
+.admin-surface input[type="file"]::file-selector-button {
+  border: 1px solid #dce9e5;
+  background: #f7fbfa;
+  color: var(--color-de-ink);
+}
+
+.admin-surface .glow-border,
+.admin-surface .listing-visual-glow {
+  box-shadow: none !important;
+}

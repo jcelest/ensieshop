@@ -177,13 +177,13 @@ export default function AdminOrders() {
             <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <p className="font-medium text-white">
-                  #{shortId} — {order.customerName}
+                  #{shortId} - {order.customerName}
                 </p>
                 <p className="text-sm text-white/50">{order.email}</p>
                 {order.phone && (
                   <p className="text-sm text-white/50">
                     {order.phone}
-                    {order.smsOptIn ? " · SMS updates on" : ""}
+                    {order.smsOptIn ? " - SMS updates on" : ""}
                   </p>
                 )}
                 <p className="text-xs text-white/40">
@@ -226,12 +226,12 @@ export default function AdminOrders() {
                 Tracking: {order.trackingNumber}
                 {order.shippedAt && (
                   <span className="ml-2 text-white/40">
-                    · Shipped {new Date(order.shippedAt).toLocaleDateString()}
+                    - Shipped {new Date(order.shippedAt).toLocaleDateString()}
                   </span>
                 )}
                 {order.deliveredAt && (
                   <span className="ml-2 text-white/40">
-                    · Delivered {new Date(order.deliveredAt).toLocaleDateString()}
+                    - Delivered {new Date(order.deliveredAt).toLocaleDateString()}
                   </span>
                 )}
               </p>

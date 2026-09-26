@@ -13,7 +13,7 @@ function emptyRate(existingIds: string[]): ShippingRate {
     name: "New Rate",
     description: "",
     price: 0,
-    estimatedDays: "5–7 business days",
+    estimatedDays: "5-7 business days",
     enabled: true,
   };
 }

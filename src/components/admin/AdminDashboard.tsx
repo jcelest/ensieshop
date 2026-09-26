@@ -68,8 +68,8 @@ export default function AdminDashboard() {
 
   if (authenticated === null) {
     return (
-      <div className="flex min-h-[calc(100vh-72px)] items-center justify-center">
-        <p className="text-sm text-white/40">Loading...</p>
+      <div className="flex min-h-[calc(100vh-72px)] items-center justify-center bg-[#f7fbfa]">
+        <p className="text-sm text-[var(--color-de-muted)]">Loading...</p>
       </div>
     );
   }
@@ -86,68 +86,77 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-72px)] bg-black px-4 py-10 sm:px-6 sm:py-12">
+    <div className="admin-surface light-form min-h-[calc(100vh-72px)] bg-[#f7fbfa] px-4 py-10 sm:px-6 sm:py-12">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="mb-8 border border-[#dce9e5] bg-white p-5 shadow-sm sm:mb-10 sm:p-6">
+          <div className="flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
-            <BrandLogo className="h-10" />
+            <BrandLogo className="text-lg" />
             <div>
-              <h1 className="slogan-text text-xl text-white">ADMIN PORTAL</h1>
-              <p className="text-xs text-white/40">Upload images, manage listings, orders &amp; shipping</p>
+              <p className="mb-1 text-xs font-semibold uppercase text-[var(--color-de-primary)]">
+                Operations
+              </p>
+              <h1 className="text-2xl font-semibold text-[var(--color-de-ink)]">
+                Admin Portal
+              </h1>
+              <p className="text-xs text-[var(--color-de-muted)]">
+                Upload products, manage listings, orders, and shipping.
+              </p>
             </div>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             <button
               onClick={() => {
                 setEditing(null);
                 setShowForm(true);
               }}
-              className="glow-border border border-[var(--color-de-primary)] bg-[var(--color-de-primary)]/10 px-5 py-2 text-xs tracking-widest text-white transition-all hover:bg-[var(--color-de-primary)]/25"
+              className="bg-[var(--color-de-primary)] px-5 py-2.5 text-xs font-semibold uppercase text-white transition hover:bg-[var(--color-de-accent-dark)]"
             >
-              + NEW LISTING
+              + New Listing
             </button>
             <button
               onClick={handleLogout}
-              className="border border-white/20 px-5 py-2 text-xs tracking-widest text-white/50 transition-all hover:text-white"
+              className="border border-[#dce9e5] bg-white px-5 py-2.5 text-xs font-semibold uppercase text-[var(--color-de-muted)] transition hover:text-[var(--color-de-primary)]"
             >
-              LOGOUT
+              Logout
             </button>
+          </div>
           </div>
         </div>
 
-        <div className="mb-8 flex gap-2 border-b border-white/10">
+        <div className="mb-8 flex gap-2 border-b border-[#dce9e5]">
           <button
             type="button"
             onClick={() => setActiveTab("listings")}
-            className={`px-4 py-2 text-xs tracking-widest transition-colors ${
+            className={`px-4 py-3 text-xs font-semibold uppercase transition-colors ${
               activeTab === "listings"
-                ? "border-b-2 border-[var(--color-de-primary)] text-white"
-                : "text-white/40 hover:text-white"
+                ? "border-b-2 border-[var(--color-de-primary)] text-[var(--color-de-primary)]"
+                : "text-[var(--color-de-muted)] hover:text-[var(--color-de-primary)]"
             }`}
           >
-            LISTINGS
+            Listings
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("orders")}
-            className={`px-4 py-2 text-xs tracking-widest transition-colors ${
+            className={`px-4 py-3 text-xs font-semibold uppercase transition-colors ${
               activeTab === "orders"
-                ? "border-b-2 border-[var(--color-de-primary)] text-white"
-                : "text-white/40 hover:text-white"
+                ? "border-b-2 border-[var(--color-de-primary)] text-[var(--color-de-primary)]"
+                : "text-[var(--color-de-muted)] hover:text-[var(--color-de-primary)]"
             }`}
           >
-            ORDERS
+            Orders
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("shipping")}
-            className={`px-4 py-2 text-xs tracking-widest transition-colors ${
+            className={`px-4 py-3 text-xs font-semibold uppercase transition-colors ${
               activeTab === "shipping"
-                ? "border-b-2 border-[var(--color-de-primary)] text-white"
-                : "text-white/40 hover:text-white"
+                ? "border-b-2 border-[var(--color-de-primary)] text-[var(--color-de-primary)]"
+                : "text-[var(--color-de-muted)] hover:text-[var(--color-de-primary)]"
             }`}
           >
-            SHIPPING
+            Shipping
           </button>
         </div>
 
@@ -175,8 +184,8 @@ export default function AdminDashboard() {
         )}
 
         <div className="space-y-4">
-          <h2 className="slogan-text text-sm text-white/60">
-            ALL LISTINGS ({products.length})
+          <h2 className="text-sm font-semibold uppercase text-[var(--color-de-primary)]">
+            All Listings ({products.length})
           </h2>
 
           <ListingsOrder

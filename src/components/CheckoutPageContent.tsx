@@ -19,6 +19,12 @@ type CheckoutShippingSettings = Pick<
   rates: ShippingRate[];
 };
 
+const inputClass =
+  "w-full border border-[#dce9e5] bg-white px-4 py-3 text-sm text-[var(--color-de-ink)] outline-none transition placeholder:text-[#8ba09c] focus:border-[var(--color-de-primary)] focus:ring-2 focus:ring-[rgba(var(--color-de-primary-rgb),0.16)]";
+
+const sectionTitleClass =
+  "text-xs font-semibold uppercase text-[var(--color-de-primary)]";
+
 export default function CheckoutPageContent() {
   const { items, total } = useCart();
   const groupedItems = useMemo(() => groupCartByProduct(items), [items]);
@@ -141,147 +147,161 @@ export default function CheckoutPageContent() {
 
   if (items.length === 0) {
     return (
-      <div className="flex min-h-[calc(100dvh-65px)] flex-col items-center justify-center px-4 py-10 text-center">
-        <h1 className="slogan-text mb-4 text-xl text-white">NOTHING TO CHECK OUT</h1>
-        <p className="mb-8 text-sm text-white/50">Your cart is empty.</p>
-        <Link
-          href="/shop"
-          className="glow-border border border-[var(--color-de-primary)] bg-[var(--color-de-primary)]/10 px-8 py-3 text-sm tracking-widest text-white"
-        >
-          BROWSE SHOP
-        </Link>
+      <div className="min-h-screen bg-[#f7fbfa]">
+        <div className="mx-auto flex min-h-[calc(100dvh-65px)] max-w-3xl flex-col items-center justify-center px-4 py-12 text-center sm:px-6">
+          <p className="mb-4 text-xs font-semibold uppercase text-[var(--color-de-primary)]">
+            Checkout
+          </p>
+          <h1 className="mb-4 text-3xl font-semibold text-[var(--color-de-ink)] sm:text-5xl">
+            Nothing to check out
+          </h1>
+          <p className="mb-8 max-w-md text-sm leading-6 text-[var(--color-de-muted)]">
+            Your cart is empty. Add a product from the shop before checking out.
+          </p>
+          <Link
+            href="/shop"
+            className="w-full max-w-xs bg-[var(--color-de-primary)] px-8 py-3.5 text-sm font-semibold uppercase text-white transition hover:bg-[var(--color-de-accent-dark)] sm:w-auto"
+          >
+            Browse Shop
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black px-4 py-10 sm:px-6 sm:py-16">
-      <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:gap-16">
+    <div className="light-form min-h-screen bg-[#f7fbfa] px-4 py-10 sm:px-6 sm:py-16">
+      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:gap-10">
         <form onSubmit={handleSubmit} className="space-y-8">
           <div>
-            <h1 className="slogan-text text-2xl text-white sm:text-4xl">CHECKOUT</h1>
-            <p className="mt-2 text-sm text-white/50">Secure payment via Stripe</p>
+            <p className="mb-3 text-xs font-semibold uppercase text-[var(--color-de-primary)]">
+              Secure Payment
+            </p>
+            <h1 className="text-3xl font-semibold text-[var(--color-de-ink)] sm:text-5xl">
+              Checkout
+            </h1>
+            <p className="mt-2 text-sm text-[var(--color-de-muted)]">
+              Enter your details, choose shipping, then continue to Stripe.
+            </p>
           </div>
 
-          <section className="space-y-4">
-            <h2 className="text-xs tracking-widest text-white/60">CONTACT</h2>
-            <input
-              name="customerName"
-              required
-              placeholder="Full name"
-              className="w-full border border-white/15 bg-black/40 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-de-primary)] focus:outline-none"
-            />
-            <input
-              name="email"
-              type="email"
-              required
-              placeholder="Email"
-              className="w-full border border-white/15 bg-black/40 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-de-primary)] focus:outline-none"
-            />
-            <input
-              name="phone"
-              type="tel"
-              placeholder="Phone (optional)"
-              className="w-full border border-white/15 bg-black/40 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-de-primary)] focus:outline-none"
-            />
-            <label className="flex cursor-pointer items-start gap-3 text-sm text-white/60">
+          <section className="border border-[#dce9e5] bg-white p-5 shadow-sm sm:p-6">
+            <h2 className={sectionTitleClass}>Contact</h2>
+            <div className="mt-4 grid gap-4">
               <input
-                type="checkbox"
-                checked={smsOptIn}
-                onChange={(e) => setSmsOptIn(e.target.checked)}
-                className="mt-0.5"
-              />
-              <span>Text me when my order ships (US numbers only)</span>
-            </label>
-          </section>
-
-          <section className="space-y-4">
-            <h2 className="text-xs tracking-widest text-white/60">SHIPPING ADDRESS</h2>
-            <input
-              name="addressLine1"
-              required
-              placeholder="Address line 1"
-              className="w-full border border-white/15 bg-black/40 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-de-primary)] focus:outline-none"
-            />
-            <input
-              name="addressLine2"
-              placeholder="Address line 2 (optional)"
-              className="w-full border border-white/15 bg-black/40 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-de-primary)] focus:outline-none"
-            />
-            <div className="grid gap-4 sm:grid-cols-2">
-              <input
-                name="city"
+                name="customerName"
                 required
-                placeholder="City"
-                className="w-full border border-white/15 bg-black/40 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-de-primary)] focus:outline-none"
+                placeholder="Full name"
+                className={inputClass}
               />
               <input
-                name="state"
+                name="email"
+                type="email"
                 required
-                placeholder="State"
-                className="w-full border border-white/15 bg-black/40 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-de-primary)] focus:outline-none"
-              />
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <input
-                name="postalCode"
-                required
-                placeholder="ZIP code"
-                className="w-full border border-white/15 bg-black/40 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-de-primary)] focus:outline-none"
+                placeholder="Email"
+                className={inputClass}
               />
               <input
-                name="country"
-                defaultValue="US"
-                placeholder="Country"
-                className="w-full border border-white/15 bg-black/40 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:border-[var(--color-de-primary)] focus:outline-none"
+                name="phone"
+                type="tel"
+                placeholder="Phone (optional)"
+                className={inputClass}
               />
-            </div>
-          </section>
-
-          <section className="space-y-3">
-            <h2 className="text-xs tracking-widest text-white/60">SHIPPING METHOD</h2>
-            {settingsLoading && (
-              <p className="text-sm text-white/40">Loading shipping options...</p>
-            )}
-            {!settingsLoading && activeSettings && qualifiesForFreeShipping && (
-              <p className="text-xs text-[var(--color-de-primary)]">
-                Free shipping unlocked on orders over ${activeSettings.freeShippingThreshold}!
-              </p>
-            )}
-            {!settingsLoading &&
-              activeSettings?.rates.map((rate) => (
-              <label
-                key={rate.id}
-                className={`flex cursor-pointer items-center justify-between border p-4 transition-colors ${
-                  shippingMethod === rate.id
-                    ? "border-[var(--color-de-primary)] bg-[var(--color-de-primary)]/10"
-                    : "border-white/10 bg-black/40"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="shippingMethod"
-                    value={rate.id}
-                    checked={shippingMethod === rate.id}
-                    onChange={() => setShippingMethod(rate.id)}
-                  />
-                  <div>
-                    <p className="text-sm text-white">{rate.name}</p>
-                    <p className="text-xs text-white/50">
-                      {rate.description} · {rate.estimatedDays}
-                    </p>
-                  </div>
-                </div>
-                <span className="text-sm text-white">
-                  {activeSettings ? formatShippingPrice(rate, total, activeSettings) : "--"}
-                </span>
+              <label className="flex cursor-pointer items-start gap-3 text-sm leading-6 text-[var(--color-de-muted)]">
+                <input
+                  type="checkbox"
+                  checked={smsOptIn}
+                  onChange={(e) => setSmsOptIn(e.target.checked)}
+                  className="mt-1"
+                />
+                <span>Text me when my order ships (US numbers only)</span>
               </label>
-            ))}
+            </div>
+          </section>
+
+          <section className="border border-[#dce9e5] bg-white p-5 shadow-sm sm:p-6">
+            <h2 className={sectionTitleClass}>Shipping Address</h2>
+            <div className="mt-4 grid gap-4">
+              <input
+                name="addressLine1"
+                required
+                placeholder="Address line 1"
+                className={inputClass}
+              />
+              <input
+                name="addressLine2"
+                placeholder="Address line 2 (optional)"
+                className={inputClass}
+              />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <input name="city" required placeholder="City" className={inputClass} />
+                <input name="state" required placeholder="State" className={inputClass} />
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <input
+                  name="postalCode"
+                  required
+                  placeholder="ZIP code"
+                  className={inputClass}
+                />
+                <input
+                  name="country"
+                  defaultValue="US"
+                  placeholder="Country"
+                  className={inputClass}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section className="border border-[#dce9e5] bg-white p-5 shadow-sm sm:p-6">
+            <h2 className={sectionTitleClass}>Shipping Method</h2>
+            <div className="mt-4 space-y-3">
+              {settingsLoading && (
+                <p className="text-sm text-[var(--color-de-muted)]">Loading shipping options...</p>
+              )}
+              {!settingsLoading && activeSettings && qualifiesForFreeShipping && (
+                <p className="border border-[rgba(var(--color-de-primary-rgb),0.22)] bg-[rgba(var(--color-de-primary-rgb),0.08)] px-4 py-3 text-xs font-medium text-[var(--color-de-primary)]">
+                  Free shipping unlocked on orders over ${activeSettings.freeShippingThreshold}.
+                </p>
+              )}
+              {!settingsLoading &&
+                activeSettings?.rates.map((rate) => (
+                  <label
+                    key={rate.id}
+                    className={`flex cursor-pointer items-center justify-between gap-4 border p-4 transition-colors ${
+                      shippingMethod === rate.id
+                        ? "border-[var(--color-de-primary)] bg-[rgba(var(--color-de-primary-rgb),0.08)]"
+                        : "border-[#dce9e5] bg-[#f7fbfa]"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        name="shippingMethod"
+                        value={rate.id}
+                        checked={shippingMethod === rate.id}
+                        onChange={() => setShippingMethod(rate.id)}
+                      />
+                      <div>
+                        <p className="text-sm font-semibold text-[var(--color-de-ink)]">
+                          {rate.name}
+                        </p>
+                        <p className="text-xs text-[var(--color-de-muted)]">
+                          {rate.description} - {rate.estimatedDays}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="shrink-0 text-sm font-semibold text-[var(--color-de-ink)]">
+                      {activeSettings ? formatShippingPrice(rate, total, activeSettings) : "--"}
+                    </span>
+                  </label>
+                ))}
+            </div>
           </section>
 
           {error && (
-            <p className="border border-red-400/30 bg-red-400/10 px-4 py-3 text-sm text-red-400">
+            <p className="border border-[#e56d46]/30 bg-[#e56d46]/10 px-4 py-3 text-sm text-[#9a3f24]">
               {error}
             </p>
           )}
@@ -289,37 +309,39 @@ export default function CheckoutPageContent() {
           <button
             type="submit"
             disabled={loading || settingsLoading || !shippingMethod}
-            className="glow-border w-full border border-[var(--color-de-primary)] bg-[var(--color-de-primary)]/10 py-4 text-sm tracking-widest text-white transition-all hover:bg-[var(--color-de-primary)]/25 disabled:opacity-50"
+            className="w-full bg-[var(--color-de-primary)] py-4 text-sm font-semibold uppercase text-white transition hover:bg-[var(--color-de-accent-dark)] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {loading ? "REDIRECTING TO STRIPE..." : `PAY $${orderTotal.toFixed(2)}`}
+            {loading ? "Redirecting to Stripe..." : `Pay $${orderTotal.toFixed(2)}`}
           </button>
 
           <Link
             href="/cart"
-            className="block text-center text-sm tracking-widest text-white/50 transition-colors hover:text-[var(--color-de-primary)]"
+            className="block text-center text-sm font-semibold uppercase text-[var(--color-de-muted)] transition-colors hover:text-[var(--color-de-primary)]"
           >
-            BACK TO CART
+            Back to Cart
           </Link>
         </form>
 
-        <aside className="h-fit border border-white/10 bg-black/40 p-6">
-          <h2 className="mb-6 text-xs tracking-widest text-white/60">ORDER SUMMARY</h2>
-          <div className="space-y-4">
+        <aside className="h-fit border border-[#dce9e5] bg-white p-5 shadow-sm sm:p-6 lg:sticky lg:top-28">
+          <h2 className={sectionTitleClass}>Order Summary</h2>
+          <div className="mt-5 space-y-4">
             {groupedItems.map((group) => (
               <div key={group.productId} className="flex gap-4">
-                <div className="relative h-14 w-14 shrink-0 overflow-hidden border border-white/10">
+                <div className="relative h-16 w-16 shrink-0 overflow-hidden border border-[#dce9e5] bg-[#f7fbfa]">
                   <Image
                     src={group.imageUrl}
                     alt={group.name}
                     fill
                     className="object-cover"
-                    sizes="56px"
+                    sizes="64px"
                   />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm text-white">{group.name}</p>
+                  <p className="truncate text-sm font-semibold text-[var(--color-de-ink)]">
+                    {group.name}
+                  </p>
                   {group.lines.map((line) => (
-                    <p key={line.lineId} className="text-xs text-white/50">
+                    <p key={line.lineId} className="text-xs text-[var(--color-de-muted)]">
                       Option {line.size} x {line.quantity}
                     </p>
                   ))}
@@ -328,20 +350,24 @@ export default function CheckoutPageContent() {
             ))}
           </div>
 
-          <div className="mt-6 space-y-2 border-t border-white/10 pt-6 text-sm">
-            <div className="flex justify-between text-white/60">
+          <div className="mt-6 space-y-3 border-t border-[#dce9e5] pt-6 text-sm">
+            <div className="flex justify-between text-[var(--color-de-muted)]">
               <span>Subtotal</span>
               <span>${total.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-white/60">
+            <div className="flex justify-between text-[var(--color-de-muted)]">
               <span>Shipping</span>
-              <span>{shippingCost === 0 ? "FREE" : `$${shippingCost.toFixed(2)}`}</span>
+              <span>{shippingCost === 0 ? "Free" : `$${shippingCost.toFixed(2)}`}</span>
             </div>
-            <div className="flex justify-between pt-2 text-lg text-white">
+            <div className="flex justify-between border-t border-[#dce9e5] pt-4 text-lg font-semibold text-[var(--color-de-ink)]">
               <span>Total</span>
               <span>${orderTotal.toFixed(2)}</span>
             </div>
           </div>
+
+          <p className="mt-6 text-xs leading-5 text-[var(--color-de-muted)]">
+            Payment details are completed securely through Stripe after this step.
+          </p>
         </aside>
       </div>
     </div>

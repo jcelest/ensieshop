@@ -449,3 +449,33 @@ input[type="radio"]:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
+
+.light-form input[type="checkbox"],
+.light-form input[type="radio"] {
+  border-color: #b9cbc7;
+  background-color: #ffffff;
+  box-shadow: none;
+}
+
+.light-form input[type="checkbox"]:checked {
+  border-color: var(--color-de-primary);
+  background-color: rgba(var(--color-de-primary-rgb), 0.12);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 6.1 4.8 8.4 9.5 3.7' stroke='%230f8f83' stroke-width='1.8' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
+}
+
+.light-form input[type="radio"]:checked {
+  border-color: var(--color-de-primary);
+  background-color: #ffffff;
+  background-image: radial-gradient(
+    circle,
+    var(--color-de-primary) 0%,
+    var(--color-de-primary) 38%,
+    transparent 42%
+  );
+}
+
+.light-form input[type="checkbox"]:focus-visible,
+.light-form input[type="radio"]:focus-visible {
+  border-color: var(--color-de-primary);
+  box-shadow: 0 0 0 2px rgba(var(--color-de-primary-rgb), 0.16);
+}

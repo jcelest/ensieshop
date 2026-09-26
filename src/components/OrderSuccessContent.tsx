@@ -12,26 +12,31 @@ export default function OrderSuccessContent() {
   }, [clearCart]);
 
   return (
-    <div className="flex min-h-[calc(100dvh-65px)] flex-col items-center justify-center px-4 py-10 text-center">
-      <h1 className="slogan-text mb-4 text-2xl text-white sm:text-4xl">ORDER CONFIRMED</h1>
-      <p className="mb-2 max-w-md text-sm text-white/60">
+    <div className="flex min-h-[calc(100dvh-65px)] flex-col items-center justify-center bg-[#f7fbfa] px-4 py-12 text-center sm:px-6">
+      <p className="mb-4 text-xs font-semibold uppercase text-[var(--color-de-primary)]">
+        Payment Received
+      </p>
+      <h1 className="mb-4 text-3xl font-semibold text-[var(--color-de-ink)] sm:text-5xl">
+        Order Confirmed
+      </h1>
+      <p className="mb-2 max-w-md text-sm leading-6 text-[var(--color-de-muted)]">
         Thank you for your order. You&apos;ll receive a confirmation email shortly.
       </p>
-      <p className="mb-10 max-w-md text-xs text-white/40">
+      <p className="mb-10 max-w-md text-xs leading-5 text-[var(--color-de-muted)]">
         Your cart has been cleared. If you don&apos;t see the email, check spam or contact support.
       </p>
       <div className="flex flex-col gap-4 sm:flex-row">
         <Link
           href="/shop"
-          className="glow-border border border-[var(--color-de-primary)] bg-[var(--color-de-primary)]/10 px-8 py-3 text-sm tracking-widest text-white transition-all hover:bg-[var(--color-de-primary)]/25"
+          className="bg-[var(--color-de-primary)] px-8 py-3 text-sm font-semibold uppercase text-white transition hover:bg-[var(--color-de-accent-dark)]"
         >
-          CONTINUE SHOPPING
+          Continue Shopping
         </Link>
         <Link
-          href="/shop"
-          className="border border-white/20 px-8 py-3 text-sm tracking-widest text-white/60 hover:text-white"
+          href="/contact"
+          className="border border-[#dce9e5] bg-white px-8 py-3 text-sm font-semibold uppercase text-[var(--color-de-muted)] transition hover:text-[var(--color-de-primary)]"
         >
-          SHOP
+          Contact
         </Link>
       </div>
     </div>

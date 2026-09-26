@@ -28,10 +28,10 @@ export default function OrderSuccessContent() {
           CONTINUE SHOPPING
         </Link>
         <Link
-          href="/"
+          href="/shop"
           className="border border-white/20 px-8 py-3 text-sm tracking-widest text-white/60 hover:text-white"
         >
-          HOME
+          SHOP
         </Link>
       </div>
     </div>

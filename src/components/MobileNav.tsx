@@ -5,7 +5,6 @@ import Link from "next/link";
 import CartLink from "@/components/CartLink";
 
 const links = [
-  { href: "/", label: "HOME" },
   { href: "/shop", label: "SHOP" },
 ];
 

@@ -22,11 +22,6 @@ export default function Footer() {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/" className="text-sm text-[var(--color-de-muted)] transition-colors hover:text-[var(--color-de-ink)]">
-                    Home
-                  </Link>
-                </li>
-                <li>
                   <Link href="/shop" className="text-sm text-[var(--color-de-muted)] transition-colors hover:text-[var(--color-de-ink)]">
                     Shop
                   </Link>

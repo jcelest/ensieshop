@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
         price_data: {
           currency: "usd",
           product_data: {
-            name: `Shipping — ${rate.name}`,
+            name: `Shipping - ${rate.name}`,
           },
           unit_amount: Math.round(shippingCost * 100),
         },

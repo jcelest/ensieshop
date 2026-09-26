@@ -6,6 +6,7 @@ import CartLink from "@/components/CartLink";
 
 const links = [
   { href: "/shop", label: "SHOP" },
+  { href: "/contact", label: "CONTACT" },
 ];
 
 export default function MobileNav() {

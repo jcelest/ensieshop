@@ -18,6 +18,12 @@ export default function Navbar() {
           >
             SHOP
           </Link>
+          <Link
+            href="/contact"
+            className="text-sm font-medium text-[var(--color-de-muted)] transition-colors hover:text-[var(--color-de-primary)]"
+          >
+            CONTACT
+          </Link>
           <CartLink />
         </div>
 

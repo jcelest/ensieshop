@@ -34,38 +34,46 @@ export default function AdminLogin({ onLogin }: { onLogin: () => void }) {
   };
 
   return (
-    <div className="flex min-h-[calc(100dvh-65px)] items-center justify-center px-4 py-8 sm:px-6">
-      <div className="w-full max-w-md border border-white/10 bg-black/60 p-6 backdrop-blur-sm sm:p-8">
-        <div className="mb-8 flex flex-col items-center">
-          <BrandLogo className="mb-4 h-16" />
-          <h1 className="slogan-text text-lg text-white">ADMIN PORTAL</h1>
-          <p className="mt-2 text-xs text-white/40">Manage listings and uploads</p>
+    <div className="relative flex min-h-[calc(100dvh-65px)] items-center justify-center overflow-hidden bg-[#f7fbfa] px-4 py-12 sm:px-6">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_15%,rgba(var(--color-de-primary-rgb),0.16),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.9),rgba(122,217,202,0.12))]" />
+
+      <div className="relative w-full max-w-[440px] rounded-lg border border-[#dce9e5] bg-white p-6 shadow-[0_24px_70px_rgba(23,53,51,0.12)] sm:p-8">
+        <div className="mb-8 flex flex-col items-center text-center">
+          <BrandLogo className="mb-5 text-lg" />
+          <h1 className="text-2xl font-semibold text-[var(--color-de-ink)]">Admin Portal</h1>
+          <p className="mt-2 max-w-xs text-sm leading-6 text-[var(--color-de-muted)]">
+            Manage product listings, uploads, shipping, and orders.
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="password" className="mb-2 block text-xs tracking-widest text-white/50">
-              PASSWORD
+            <label htmlFor="password" className="mb-2 block text-sm font-medium text-[var(--color-de-ink)]">
+              Password
             </label>
             <input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-white/20 bg-black px-4 py-3 text-white outline-none focus:border-[var(--color-de-primary)]"
+              className="h-12 w-full rounded-full border border-[#dce9e5] bg-[#f7fbfa] px-5 text-sm text-[var(--color-de-ink)] outline-none transition focus:border-[var(--color-de-primary)] focus:bg-white focus:shadow-[0_0_0_4px_rgba(var(--color-de-primary-rgb),0.12)]"
               placeholder="Enter admin password"
               required
             />
           </div>
 
-          {error && <p className="text-sm text-red-400">{error}</p>}
+          {error && (
+            <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+              {error}
+            </p>
+          )}
 
           <button
             type="submit"
             disabled={loading}
-            className="glow-border w-full border border-[var(--color-de-primary)] bg-[var(--color-de-primary)]/10 py-3 text-sm tracking-widest text-white transition-all hover:bg-[var(--color-de-primary)]/25 disabled:opacity-50"
+            className="h-12 w-full rounded-full bg-[var(--color-de-primary)] px-5 text-sm font-semibold text-white shadow-[0_18px_38px_rgba(var(--color-de-primary-rgb),0.24)] transition hover:bg-[#0a746b] disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading ? "SIGNING IN..." : "SIGN IN"}
+            {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
       </div>

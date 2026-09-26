@@ -7,23 +7,38 @@ type SubmitState = "idle" | "submitting" | "success" | "error";
 export default function ContactForm() {
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState("");
+  const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setState("submitting");
     setMessage("");
 
+    if (!accessKey) {
+      setState("error");
+      setMessage("Contact form is not configured yet.");
+      return;
+    }
+
     const form = event.currentTarget;
     const formData = new FormData(form);
+    const name = String(formData.get("name") || "EnsieShop customer").trim();
+    const email = String(formData.get("email") || "").trim();
+
+    formData.set("access_key", accessKey);
+    formData.set("from_name", "EnsieShop Contact Form");
+    formData.set("subject", `EnsieShop contact from ${name}`);
+    formData.set("replyto", email);
+    formData.set("inbox", "ecelesister@gmail.com");
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData,
       });
-      const data = (await response.json()) as { message?: string };
+      const data = (await response.json()) as { success?: boolean; message?: string };
 
-      if (!response.ok) {
+      if (!response.ok || !data.success) {
         throw new Error(data.message || "Message failed to send.");
       }
 

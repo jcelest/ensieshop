@@ -51,23 +51,23 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const web3Form = new FormData();
+  web3Form.set("access_key", accessKey);
+  web3Form.set("from_name", "EnsieShop Contact Form");
+  web3Form.set("subject", `EnsieShop contact from ${name}`);
+  web3Form.set("name", name);
+  web3Form.set("email", email);
+  web3Form.set("replyto", email);
+  web3Form.set("order_number", orderNumber || "Not provided");
+  web3Form.set("message", message);
+  web3Form.set("inbox", contactEmail);
+
   const web3Response = await fetch("https://api.web3forms.com/submit", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       Accept: "application/json",
     },
-    body: JSON.stringify({
-      access_key: accessKey,
-      from_name: "EnsieShop Contact Form",
-      subject: `EnsieShop contact from ${name}`,
-      name,
-      email,
-      replyto: email,
-      order_number: orderNumber || "Not provided",
-      message,
-      inbox: contactEmail,
-    }),
+    body: web3Form,
   });
 
   const web3Result = (await web3Response.json().catch(() => ({}))) as {

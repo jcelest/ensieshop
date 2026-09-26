@@ -22,13 +22,13 @@ export default async function ShopPage() {
     <div className="relative min-h-screen overflow-hidden bg-[#f7fbfa]">
       <div>
         <CampaignBanner
-          src="/images/organizer-hero.png"
-          alt="EnsieShop hero product on a bright desk"
+          src="/images/hair-growth-hero.png"
+          alt="EnsieShop hair growth product on a bright vanity"
           width={2560}
           height={920}
         >
           <h1 className="text-3xl font-semibold text-white sm:text-4xl md:text-5xl">
-            Shop Practical Finds
+            Shop
           </h1>
         </CampaignBanner>
 

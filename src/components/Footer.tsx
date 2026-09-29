@@ -35,6 +35,11 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/returns" className="text-sm text-[var(--color-de-muted)] transition-colors hover:text-[var(--color-de-ink)]">
+                    Return Policy
+                  </Link>
+                </li>
+                <li>
                   <Link href="/admin" className="text-sm text-[var(--color-de-muted)] transition-colors hover:text-[var(--color-de-ink)]">
                     Admin Portal
                   </Link>

@@ -92,39 +92,41 @@ function SortableListingRow({
         </span>
       </button>
 
-      <div className="relative h-16 w-16 shrink-0 overflow-hidden border border-white/10">
-        <Image
-          src={getPrimaryImageUrl(product.imageUrls)}
-          alt={product.name}
-          fill
-          className="object-cover"
-        />
+      <div className="flex min-w-0 gap-3 sm:flex-1 sm:items-center sm:gap-4">
+        <div className="relative h-16 w-16 shrink-0 overflow-hidden border border-white/10">
+          <Image
+            src={getPrimaryImageUrl(product.imageUrls)}
+            alt={product.name}
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <p className="break-words font-medium leading-snug text-white">{product.name}</p>
+          <p className="text-sm leading-5 text-white/50">
+            ${product.price.toFixed(2)} &middot; {product.category}
+            <span className="ml-2 text-white/40">
+              {imageCount} image{imageCount !== 1 ? "s" : ""}
+            </span>
+            {product.featured && <span className="ml-2 text-[var(--color-de-primary)]">Featured</span>}
+            {!product.inStock && <span className="ml-2 text-red-400">Sold Out</span>}
+          </p>
+        </div>
       </div>
 
-      <div className="min-w-0 flex-1">
-        <p className="truncate font-medium text-white">{product.name}</p>
-        <p className="text-sm text-white/50">
-          ${product.price.toFixed(2)} &middot; {product.category}
-          <span className="ml-2 text-white/40">
-            {imageCount} image{imageCount !== 1 ? "s" : ""}
-          </span>
-          {product.featured && <span className="ml-2 text-[var(--color-de-primary)]">Featured</span>}
-          {!product.inStock && <span className="ml-2 text-red-400">Sold Out</span>}
-        </p>
-      </div>
-
-      <div className="flex shrink-0 gap-2 self-start sm:self-auto">
+      <div className="grid w-full grid-cols-2 gap-2 sm:w-auto sm:flex sm:shrink-0 sm:self-auto">
         <button
           type="button"
           onClick={() => onEdit(product)}
-          className="border border-white/20 px-3 py-1 text-xs tracking-widest text-white/60 hover:text-white"
+          className="min-h-10 border border-white/20 px-3 py-1 text-xs tracking-widest text-white/60 hover:text-white"
         >
           EDIT
         </button>
         <button
           type="button"
           onClick={() => onDelete(product.id)}
-          className="border border-red-400/30 px-3 py-1 text-xs tracking-widest text-red-400/70 hover:text-red-400"
+          className="min-h-10 border border-red-400/30 px-3 py-1 text-xs tracking-widest text-red-400/70 hover:text-red-400"
         >
           DELETE
         </button>

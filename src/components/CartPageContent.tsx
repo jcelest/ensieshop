@@ -84,7 +84,7 @@ export default function CartPageContent() {
                     <div className="min-w-0 flex-1">
                       <Link
                         href={`/shop/${group.productId}`}
-                        className="block font-semibold text-[var(--color-de-ink)] transition-colors hover:text-[var(--color-de-primary)]"
+                        className="block break-words font-semibold leading-snug text-[var(--color-de-ink)] transition-colors hover:text-[var(--color-de-primary)]"
                       >
                         {group.name}
                       </Link>
@@ -106,14 +106,14 @@ export default function CartPageContent() {
                       className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:gap-4"
                     >
                       {(item.color || item.size) && (
-                        <p className="text-sm text-[var(--color-de-muted)]">
+                        <p className="break-words text-sm text-[var(--color-de-muted)] sm:max-w-[40%]">
                           {[item.color, item.size ? `Option ${item.size}` : ""]
                             .filter(Boolean)
                             .join(" / ")}
                         </p>
                       )}
 
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 sm:ml-auto">
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.lineId, item.quantity - 1)}
@@ -133,7 +133,7 @@ export default function CartPageContent() {
                         </button>
                       </div>
 
-                      <p className="text-sm font-medium text-[var(--color-de-muted)] sm:ml-auto">
+                      <p className="text-sm font-medium text-[var(--color-de-muted)] sm:w-20 sm:text-right">
                         ${(item.price * item.quantity).toFixed(2)}
                       </p>
 

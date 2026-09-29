@@ -90,45 +90,45 @@ export default function AdminDashboard() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 border border-[#dce9e5] bg-white p-5 shadow-sm sm:mb-10 sm:p-6">
           <div className="flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-          <div className="flex items-center gap-4">
-            <BrandLogo className="text-lg" />
-            <div>
-              <p className="mb-1 text-xs font-semibold uppercase text-[var(--color-de-primary)]">
-                Operations
-              </p>
-              <h1 className="text-2xl font-semibold text-[var(--color-de-ink)]">
-                Admin Portal
-              </h1>
-              <p className="text-xs text-[var(--color-de-muted)]">
-                Upload products, manage listings, orders, and shipping.
-              </p>
+            <div className="flex min-w-0 items-start gap-4 sm:items-center">
+              <BrandLogo className="shrink-0 text-lg" />
+              <div className="min-w-0">
+                <p className="mb-1 text-xs font-semibold uppercase text-[var(--color-de-primary)]">
+                  Operations
+                </p>
+                <h1 className="text-2xl font-semibold text-[var(--color-de-ink)]">
+                  Admin Portal
+                </h1>
+                <p className="text-xs leading-5 text-[var(--color-de-muted)]">
+                  Upload products, manage listings, orders, and shipping.
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={() => {
-                setEditing(null);
-                setShowForm(true);
-              }}
-              className="bg-[var(--color-de-primary)] px-5 py-2.5 text-xs font-semibold uppercase text-white transition hover:bg-[var(--color-de-accent-dark)]"
-            >
-              + New Listing
-            </button>
-            <button
-              onClick={handleLogout}
-              className="border border-[#dce9e5] bg-white px-5 py-2.5 text-xs font-semibold uppercase text-[var(--color-de-muted)] transition hover:text-[var(--color-de-primary)]"
-            >
-              Logout
-            </button>
-          </div>
+            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
+              <button
+                onClick={() => {
+                  setEditing(null);
+                  setShowForm(true);
+                }}
+                className="min-h-11 bg-[var(--color-de-primary)] px-4 py-2.5 text-xs font-semibold uppercase text-white transition hover:bg-[var(--color-de-accent-dark)] sm:px-5"
+              >
+                + New Listing
+              </button>
+              <button
+                onClick={handleLogout}
+                className="min-h-11 border border-[#dce9e5] bg-white px-4 py-2.5 text-xs font-semibold uppercase text-[var(--color-de-muted)] transition hover:text-[var(--color-de-primary)] sm:px-5"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="mb-8 flex gap-2 border-b border-[#dce9e5]">
+        <div className="mb-8 flex gap-2 overflow-x-auto border-b border-[#dce9e5] pb-px">
           <button
             type="button"
             onClick={() => setActiveTab("listings")}
-            className={`px-4 py-3 text-xs font-semibold uppercase transition-colors ${
+            className={`shrink-0 px-4 py-3 text-xs font-semibold uppercase transition-colors ${
               activeTab === "listings"
                 ? "border-b-2 border-[var(--color-de-primary)] text-[var(--color-de-primary)]"
                 : "text-[var(--color-de-muted)] hover:text-[var(--color-de-primary)]"
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
           <button
             type="button"
             onClick={() => setActiveTab("orders")}
-            className={`px-4 py-3 text-xs font-semibold uppercase transition-colors ${
+            className={`shrink-0 px-4 py-3 text-xs font-semibold uppercase transition-colors ${
               activeTab === "orders"
                 ? "border-b-2 border-[var(--color-de-primary)] text-[var(--color-de-primary)]"
                 : "text-[var(--color-de-muted)] hover:text-[var(--color-de-primary)]"
@@ -150,7 +150,7 @@ export default function AdminDashboard() {
           <button
             type="button"
             onClick={() => setActiveTab("shipping")}
-            className={`px-4 py-3 text-xs font-semibold uppercase transition-colors ${
+            className={`shrink-0 px-4 py-3 text-xs font-semibold uppercase transition-colors ${
               activeTab === "shipping"
                 ? "border-b-2 border-[var(--color-de-primary)] text-[var(--color-de-primary)]"
                 : "text-[var(--color-de-muted)] hover:text-[var(--color-de-primary)]"

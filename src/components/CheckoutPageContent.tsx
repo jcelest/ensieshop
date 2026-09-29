@@ -20,7 +20,7 @@ type CheckoutShippingSettings = Pick<
 };
 
 const inputClass =
-  "w-full border border-[#dce9e5] bg-white px-4 py-3 text-sm text-[var(--color-de-ink)] outline-none transition placeholder:text-[#8ba09c] focus:border-[var(--color-de-primary)] focus:ring-2 focus:ring-[rgba(var(--color-de-primary-rgb),0.16)]";
+  "min-h-12 w-full border border-[#dce9e5] bg-white px-4 py-3 text-base text-[var(--color-de-ink)] outline-none transition placeholder:text-[#8ba09c] focus:border-[var(--color-de-primary)] focus:ring-2 focus:ring-[rgba(var(--color-de-primary-rgb),0.16)] sm:text-sm";
 
 const sectionTitleClass =
   "text-xs font-semibold uppercase text-[var(--color-de-primary)]";
@@ -269,30 +269,31 @@ export default function CheckoutPageContent() {
                 activeSettings?.rates.map((rate) => (
                   <label
                     key={rate.id}
-                    className={`flex cursor-pointer items-center justify-between gap-4 border p-4 transition-colors ${
+                    className={`flex cursor-pointer flex-col gap-3 border p-4 transition-colors sm:flex-row sm:items-center sm:justify-between sm:gap-4 ${
                       shippingMethod === rate.id
                         ? "border-[var(--color-de-primary)] bg-[rgba(var(--color-de-primary-rgb),0.08)]"
                         : "border-[#dce9e5] bg-[#f7fbfa]"
                     }`}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex min-w-0 items-start gap-3">
                       <input
                         type="radio"
                         name="shippingMethod"
                         value={rate.id}
                         checked={shippingMethod === rate.id}
                         onChange={() => setShippingMethod(rate.id)}
+                        className="mt-0.5"
                       />
-                      <div>
+                      <div className="min-w-0">
                         <p className="text-sm font-semibold text-[var(--color-de-ink)]">
                           {rate.name}
                         </p>
-                        <p className="text-xs text-[var(--color-de-muted)]">
+                        <p className="break-words text-xs leading-5 text-[var(--color-de-muted)]">
                           {rate.description} - {rate.estimatedDays}
                         </p>
                       </div>
                     </div>
-                    <span className="shrink-0 text-sm font-semibold text-[var(--color-de-ink)]">
+                    <span className="self-start text-sm font-semibold text-[var(--color-de-ink)] sm:self-auto">
                       {activeSettings ? formatShippingPrice(rate, total, activeSettings) : "--"}
                     </span>
                   </label>
@@ -337,7 +338,7 @@ export default function CheckoutPageContent() {
                   />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-[var(--color-de-ink)]">
+                  <p className="break-words text-sm font-semibold leading-snug text-[var(--color-de-ink)]">
                     {group.name}
                   </p>
                   {group.lines.map((line) => (

@@ -183,7 +183,7 @@ export default function AdminShipping() {
           <button
             type="button"
             onClick={addRate}
-            className="border border-white/20 px-4 py-2 text-xs tracking-widest text-white/70 transition-colors hover:text-white"
+            className="min-h-11 w-full border border-white/20 px-4 py-2 text-xs tracking-widest text-white/70 transition-colors hover:text-white sm:w-auto"
           >
             + ADD METHOD
           </button>
@@ -192,12 +192,12 @@ export default function AdminShipping() {
         <div className="space-y-4">
           {settings.rates.map((rate, index) => (
             <div key={`${rate.id}-${index}`} className="space-y-4 border border-white/10 bg-black/40 p-5">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <p className="text-sm text-white">{rate.name || "Untitled rate"}</p>
-                  <p className="text-xs text-white/40">ID: {rate.id}</p>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="min-w-0">
+                  <p className="break-words text-sm text-white">{rate.name || "Untitled rate"}</p>
+                  <p className="break-words text-xs text-white/40">ID: {rate.id}</p>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex flex-wrap items-center gap-4">
                   <label className="flex items-center gap-2 text-xs text-white/60">
                     <input
                       type="checkbox"
@@ -209,7 +209,7 @@ export default function AdminShipping() {
                   <button
                     type="button"
                     onClick={() => removeRate(index)}
-                    className="text-xs tracking-widest text-red-400/80 transition-colors hover:text-red-400"
+                    className="min-h-10 px-2 text-xs tracking-widest text-red-400/80 transition-colors hover:text-red-400"
                   >
                     REMOVE
                   </button>
@@ -265,7 +265,7 @@ export default function AdminShipping() {
         type="button"
         onClick={handleSave}
         disabled={saving}
-        className="glow-border border border-[var(--color-de-primary)] bg-[var(--color-de-primary)]/10 px-6 py-3 text-xs tracking-widest text-white transition-all hover:bg-[var(--color-de-primary)]/25 disabled:opacity-50"
+        className="glow-border min-h-11 w-full border border-[var(--color-de-primary)] bg-[var(--color-de-primary)]/10 px-6 py-3 text-xs tracking-widest text-white transition-all hover:bg-[var(--color-de-primary)]/25 disabled:opacity-50 sm:w-auto"
       >
         {saving ? "SAVING..." : "SAVE SHIPPING SETTINGS"}
       </button>

@@ -196,7 +196,7 @@ export default function ProductDetail({
             </p>
 
             <h1
-              className="listing-fade-item mb-4 text-2xl font-semibold text-[var(--color-de-ink)] sm:text-3xl md:text-4xl"
+              className="listing-fade-item mb-4 text-2xl font-semibold leading-tight text-[var(--color-de-ink)] sm:text-3xl md:text-4xl"
               style={{ animationDelay: "240ms" }}
             >
               {product.name}
@@ -215,7 +215,7 @@ export default function ProductDetail({
             </div>
 
             <p
-              className="listing-fade-item mb-8 whitespace-pre-line leading-relaxed text-[var(--color-de-muted)]"
+              className="listing-fade-item mb-8 whitespace-pre-line break-words leading-relaxed text-[var(--color-de-muted)]"
               style={{ animationDelay: "400ms" }}
             >
               {product.description}

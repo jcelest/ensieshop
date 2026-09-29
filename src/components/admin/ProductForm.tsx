@@ -324,7 +324,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
             </p>
           </div>
 
-          <div className="flex gap-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
             <label className="flex items-center gap-2 text-sm text-white/70">
               <input
                 type="checkbox"
@@ -368,14 +368,14 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
                         No image
                       </div>
                     )}
-                    <div className="flex flex-1 flex-col gap-2 sm:flex-row">
+                    <div className="flex min-w-0 flex-1 flex-col gap-2 sm:flex-row">
                       <input
                         type="file"
                         accept="image/jpeg,image/png,image/webp,image/gif"
                         onChange={(e) =>
                           handleColorImageChange(color, e.target.files?.[0] || null)
                         }
-                        className="w-full text-xs text-white/60 file:mr-3 file:border file:border-white/20 file:bg-black file:px-3 file:py-2 file:text-xs file:text-white"
+                        className="w-full min-w-0 text-xs text-white/60 file:mr-3 file:border file:border-white/20 file:bg-black file:px-3 file:py-2 file:text-xs file:text-white"
                       />
                       {(existingUrl || pending) && (
                         <button
@@ -408,7 +408,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
               multiple
               onChange={handleImageChange}
               disabled={remainingSlots <= 0}
-              className="w-full text-sm text-white/60 file:mr-4 file:border file:border-white/20 file:bg-black file:px-4 file:py-2 file:text-sm file:text-white disabled:opacity-40"
+              className="w-full min-w-0 text-sm text-white/60 file:mr-4 file:border file:border-white/20 file:bg-black file:px-4 file:py-2 file:text-sm file:text-white disabled:opacity-40"
             />
             <p className="mt-2 text-xs text-white/40">
               Extra angles such as back shots. Color covers are uploaded above - do not re-upload
@@ -473,14 +473,14 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
         <button
           type="submit"
           disabled={loading}
-          className="glow-border border border-[var(--color-de-primary)] bg-[var(--color-de-primary)]/10 px-6 py-2 text-sm tracking-widest text-white transition-all hover:bg-[var(--color-de-primary)]/25 disabled:opacity-50"
+          className="glow-border min-h-11 border border-[var(--color-de-primary)] bg-[var(--color-de-primary)]/10 px-6 py-2 text-sm tracking-widest text-white transition-all hover:bg-[var(--color-de-primary)]/25 disabled:opacity-50"
         >
           {loading ? "SAVING..." : product ? "UPDATE" : "CREATE"}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="border border-white/20 px-6 py-2 text-sm tracking-widest text-white/60 transition-all hover:text-white"
+          className="min-h-11 border border-white/20 px-6 py-2 text-sm tracking-widest text-white/60 transition-all hover:text-white"
         >
           CANCEL
         </button>

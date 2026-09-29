@@ -57,11 +57,13 @@ export default function ProductCard({ product }: { product: Product }) {
           </div>
         )}
       </div>
-      <div className="p-5">
+      <div className="p-4 sm:p-5">
         <p className="mb-1 text-xs font-semibold text-[var(--color-de-primary)] uppercase">
           {product.category}
         </p>
-        <h3 className="mb-2 text-lg font-semibold text-[var(--color-de-ink)]">{product.name}</h3>
+        <h3 className="mb-2 text-base font-semibold leading-snug text-[var(--color-de-ink)] sm:text-lg">
+          {product.name}
+        </h3>
         <p className="text-sm text-[var(--color-de-muted)]">${product.price.toFixed(2)}</p>
       </div>
     </Link>

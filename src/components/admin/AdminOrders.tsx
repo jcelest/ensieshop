@@ -176,10 +176,10 @@ export default function AdminOrders() {
           >
             <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <p className="font-medium text-white">
+                <p className="break-words font-medium text-white">
                   #{shortId} - {order.customerName}
                 </p>
-                <p className="text-sm text-white/50">{order.email}</p>
+                <p className="break-words text-sm text-white/50">{order.email}</p>
                 {order.phone && (
                   <p className="text-sm text-white/50">
                     {order.phone}
@@ -209,8 +209,7 @@ export default function AdminOrders() {
 
             <div className="mb-4 space-y-1 border-t border-white/10 pt-4">
               {order.items.map((item) => (
-                <p key={item.id} className="text-sm text-white/70">
-                  {item.name}
+                <p key={item.id} className="break-words text-sm leading-6 text-white/70">
                   {[
                     item.name,
                     item.color,
@@ -231,12 +230,12 @@ export default function AdminOrders() {
               <p className="mb-4 text-sm text-[var(--color-de-primary)]">
                 Tracking: {order.trackingNumber}
                 {order.shippedAt && (
-                  <span className="ml-2 text-white/40">
+                  <span className="block text-white/40 sm:ml-2 sm:inline">
                     - Shipped {new Date(order.shippedAt).toLocaleDateString()}
                   </span>
                 )}
                 {order.deliveredAt && (
-                  <span className="ml-2 text-white/40">
+                  <span className="block text-white/40 sm:ml-2 sm:inline">
                     - Delivered {new Date(order.deliveredAt).toLocaleDateString()}
                   </span>
                 )}

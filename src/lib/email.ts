@@ -16,15 +16,23 @@ function getSendGrid(): typeof sgMail | null {
   return sgMail;
 }
 
-function parseFromAddress(): { email: string; name: string } {
-  const raw = process.env.SENDGRID_FROM_EMAIL || "EnsieShop <orders@ensieshop.com>";
+function getFromAddress(): string {
+  return (
+    process.env.RESEND_FROM_EMAIL ||
+    process.env.SENDGRID_FROM_EMAIL ||
+    "EnsieShop <onboarding@resend.dev>"
+  );
+}
+
+function parseSendGridFromAddress(): { email: string; name: string } {
+  const raw = getFromAddress();
   const match = raw.match(/^(.+?)\s*<([^>]+)>$/);
   if (match) return { name: match[1].trim(), email: match[2].trim() };
   return { name: "EnsieShop", email: raw.trim() };
 }
 
 export function isEmailConfigured(): boolean {
-  return Boolean(process.env.SENDGRID_API_KEY);
+  return Boolean(process.env.RESEND_API_KEY || process.env.SENDGRID_API_KEY);
 }
 
 function escapeHtml(value: string): string {
@@ -201,24 +209,55 @@ function trackingCard(trackingNumber: string, accent: string): string {
 }
 
 async function sendEmail(to: string, subject: string, html: string): Promise<void> {
-  const client = getSendGrid();
-  if (!client) {
-    console.warn("SENDGRID_API_KEY not set - skipping email");
+  if (process.env.RESEND_API_KEY) {
+    await sendResendEmail(to, subject, html);
     return;
   }
 
-  const from = parseFromAddress();
+  const client = getSendGrid();
+  if (!client) {
+    console.warn("No email provider key set - skipping email");
+    return;
+  }
+
+  const from = parseSendGridFromAddress();
   await client.send({ to, from, subject, html });
 }
 
 async function sendRequiredEmail(to: string, subject: string, html: string): Promise<void> {
-  const client = getSendGrid();
-  if (!client) {
-    throw new Error("SENDGRID_API_KEY is not configured");
+  if (process.env.RESEND_API_KEY) {
+    await sendResendEmail(to, subject, html);
+    return;
   }
 
-  const from = parseFromAddress();
+  const client = getSendGrid();
+  if (!client) {
+    throw new Error("RESEND_API_KEY or SENDGRID_API_KEY is not configured");
+  }
+
+  const from = parseSendGridFromAddress();
   await client.send({ to, from, subject, html });
+}
+
+async function sendResendEmail(to: string, subject: string, html: string): Promise<void> {
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: getFromAddress(),
+      to,
+      subject,
+      html,
+    }),
+  });
+
+  if (!response.ok) {
+    const text = await response.text().catch(() => "");
+    throw new Error(`Resend email failed (${response.status}): ${text}`);
+  }
 }
 
 export async function sendContactNotificationEmail(input: {

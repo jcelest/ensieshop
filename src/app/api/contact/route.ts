@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
 
   if (!isEmailConfigured()) {
     return NextResponse.json(
-      { message: "Email notifications are not configured yet." },
+      { message: "Email notifications are not configured yet. Add RESEND_API_KEY in Vercel." },
       { status: 503 }
     );
   }

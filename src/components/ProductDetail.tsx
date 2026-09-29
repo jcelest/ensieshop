@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import ProductGallery from "@/components/ProductGallery";
 import { useCart } from "@/context/CartContext";
@@ -43,6 +43,7 @@ export default function ProductDetail({
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [error, setError] = useState("");
+  const addedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hasOptions = sizes.length > 0;
 
   const galleryImages = useMemo(
@@ -73,6 +74,12 @@ export default function ProductDetail({
   useEffect(() => {
     setQuantity(1);
   }, [selectedSize, selectedColor]);
+
+  useEffect(() => {
+    return () => {
+      if (addedTimer.current) clearTimeout(addedTimer.current);
+    };
+  }, []);
 
   useEffect(() => {
     if (colors.length > 0 && selectedColor) {
@@ -122,7 +129,8 @@ export default function ProductDetail({
 
     setError("");
     setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+    if (addedTimer.current) clearTimeout(addedTimer.current);
+    addedTimer.current = setTimeout(() => setAdded(false), 7000);
   };
 
   return (
@@ -265,22 +273,29 @@ export default function ProductDetail({
             {error && <p className="mb-4 text-sm text-red-500">{error}</p>}
             {added && (
               <p className="mb-4 text-sm text-[var(--color-de-primary)]">
-                Added {quantity} to cart -{" "}
-                <Link href="/cart" className="underline hover:text-[var(--color-de-ink)]">
-                  view cart
-                </Link>
+                Added {quantity} to cart.
               </p>
             )}
 
-            <button
-              type="button"
-              onClick={handleAddToCart}
-              disabled={!product.inStock}
-              className="listing-fade-item add-to-cart-btn w-full rounded-full border py-4 text-sm font-semibold text-[var(--color-de-ink)] disabled:cursor-not-allowed disabled:opacity-40"
-              style={{ animationDelay: "600ms" }}
-            >
-              {product.inStock ? "ADD TO CART" : "SOLD OUT"}
-            </button>
+            {added ? (
+              <Link
+                href="/cart"
+                className="listing-fade-item add-to-cart-btn block w-full rounded-full border border-[var(--color-de-primary)] bg-[var(--color-de-primary)] py-4 text-center text-sm font-semibold text-white shadow-[0_14px_32px_rgba(15,143,131,0.22)] transition-transform hover:-translate-y-0.5"
+                style={{ animationDelay: "600ms" }}
+              >
+                VIEW CART
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                disabled={!product.inStock}
+                className="listing-fade-item add-to-cart-btn w-full rounded-full border py-4 text-sm font-semibold text-[var(--color-de-ink)] disabled:cursor-not-allowed disabled:opacity-40"
+                style={{ animationDelay: "600ms" }}
+              >
+                {product.inStock ? "ADD TO CART" : "SOLD OUT"}
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -1,60 +1,26 @@
-"use client";
-
-import { FormEvent, useState } from "react";
-
-type SubmitState = "idle" | "submitting" | "success" | "error";
+const successUrl = "https://www.ensieshop.com/contact/thanks";
 
 export default function ContactForm() {
-  const [state, setState] = useState<SubmitState>("idle");
-  const [message, setMessage] = useState("");
   const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setState("submitting");
-    setMessage("");
-
-    if (!accessKey) {
-      setState("error");
-      setMessage("Contact form is not configured yet.");
-      return;
-    }
-
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const name = String(formData.get("name") || "EnsieShop customer").trim();
-    const email = String(formData.get("email") || "").trim();
-
-    formData.set("access_key", accessKey);
-    formData.set("from_name", "EnsieShop Contact Form");
-    formData.set("subject", `EnsieShop contact from ${name}`);
-    formData.set("replyto", email);
-    formData.set("inbox", "ecelesister@gmail.com");
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData,
-      });
-      const data = (await response.json()) as { success?: boolean; message?: string };
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || "Message failed to send.");
-      }
-
-      form.reset();
-      setState("success");
-      setMessage(data.message || "Message sent.");
-    } catch (error) {
-      setState("error");
-      setMessage(error instanceof Error ? error.message : "Message failed to send.");
-    }
+  if (!accessKey) {
+    return (
+      <div className="border border-[#e56d46]/30 bg-[#e56d46]/10 px-4 py-3 text-sm text-[#9a3f24]">
+        Contact form is not configured yet.
+      </div>
+    );
   }
 
-  const disabled = state === "submitting";
-
   return (
-    <form onSubmit={handleSubmit} className="grid gap-5" noValidate>
+    <form
+      action="https://api.web3forms.com/submit"
+      method="POST"
+      className="grid gap-5"
+    >
+      <input type="hidden" name="access_key" value={accessKey} />
+      <input type="hidden" name="from_name" value="EnsieShop Contact Form" />
+      <input type="hidden" name="subject" value="New EnsieShop contact message" />
+      <input type="hidden" name="redirect" value={successUrl} />
       <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" />
 
       <div className="grid gap-2">
@@ -66,8 +32,7 @@ export default function ContactForm() {
           name="name"
           type="text"
           required
-          disabled={disabled}
-          className="min-h-12 border border-[#dce9e5] bg-white px-4 text-sm text-[var(--color-de-ink)] outline-none transition focus:border-[var(--color-de-primary)] focus:ring-2 focus:ring-[rgba(var(--color-de-primary-rgb),0.16)] disabled:opacity-60"
+          className="min-h-12 border border-[#dce9e5] bg-white px-4 text-sm text-[var(--color-de-ink)] outline-none transition focus:border-[var(--color-de-primary)] focus:ring-2 focus:ring-[rgba(var(--color-de-primary-rgb),0.16)]"
           placeholder="Your name"
         />
       </div>
@@ -81,8 +46,7 @@ export default function ContactForm() {
           name="email"
           type="email"
           required
-          disabled={disabled}
-          className="min-h-12 border border-[#dce9e5] bg-white px-4 text-sm text-[var(--color-de-ink)] outline-none transition focus:border-[var(--color-de-primary)] focus:ring-2 focus:ring-[rgba(var(--color-de-primary-rgb),0.16)] disabled:opacity-60"
+          className="min-h-12 border border-[#dce9e5] bg-white px-4 text-sm text-[var(--color-de-ink)] outline-none transition focus:border-[var(--color-de-primary)] focus:ring-2 focus:ring-[rgba(var(--color-de-primary-rgb),0.16)]"
           placeholder="you@example.com"
         />
       </div>
@@ -93,10 +57,9 @@ export default function ContactForm() {
         </label>
         <input
           id="orderNumber"
-          name="orderNumber"
+          name="order_number"
           type="text"
-          disabled={disabled}
-          className="min-h-12 border border-[#dce9e5] bg-white px-4 text-sm text-[var(--color-de-ink)] outline-none transition focus:border-[var(--color-de-primary)] focus:ring-2 focus:ring-[rgba(var(--color-de-primary-rgb),0.16)] disabled:opacity-60"
+          className="min-h-12 border border-[#dce9e5] bg-white px-4 text-sm text-[var(--color-de-ink)] outline-none transition focus:border-[var(--color-de-primary)] focus:ring-2 focus:ring-[rgba(var(--color-de-primary-rgb),0.16)]"
           placeholder="Optional"
         />
       </div>
@@ -109,33 +72,18 @@ export default function ContactForm() {
           id="message"
           name="message"
           required
-          disabled={disabled}
           rows={6}
-          className="min-h-40 resize-y border border-[#dce9e5] bg-white px-4 py-3 text-sm text-[var(--color-de-ink)] outline-none transition focus:border-[var(--color-de-primary)] focus:ring-2 focus:ring-[rgba(var(--color-de-primary-rgb),0.16)] disabled:opacity-60"
+          className="min-h-40 resize-y border border-[#dce9e5] bg-white px-4 py-3 text-sm text-[var(--color-de-ink)] outline-none transition focus:border-[var(--color-de-primary)] focus:ring-2 focus:ring-[rgba(var(--color-de-primary-rgb),0.16)]"
           placeholder="How can we help?"
         />
       </div>
 
       <button
         type="submit"
-        disabled={disabled}
-        className="min-h-12 bg-[var(--color-de-primary)] px-6 text-sm font-semibold uppercase text-white transition hover:bg-[var(--color-de-accent-dark)] disabled:cursor-not-allowed disabled:opacity-60"
+        className="min-h-12 bg-[var(--color-de-primary)] px-6 text-sm font-semibold uppercase text-white transition hover:bg-[var(--color-de-accent-dark)]"
       >
-        {disabled ? "Sending..." : "Send Message"}
+        Send Message
       </button>
-
-      {message && (
-        <p
-          className={`border px-4 py-3 text-sm ${
-            state === "success"
-              ? "border-[rgba(var(--color-de-primary-rgb),0.28)] bg-[rgba(var(--color-de-primary-rgb),0.08)] text-[var(--color-de-primary)]"
-              : "border-[#e56d46]/30 bg-[#e56d46]/10 text-[#9a3f24]"
-          }`}
-          role="status"
-        >
-          {message}
-        </p>
-      )}
     </form>
   );
 }

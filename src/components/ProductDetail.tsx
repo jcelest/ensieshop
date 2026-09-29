@@ -166,7 +166,7 @@ export default function ProductDetail({
   );
 
   return (
-    <div className="min-h-screen bg-[#f7fbfa] px-4 py-10 sm:px-6 sm:py-16">
+    <div className="min-h-screen bg-[#f7fbfa] px-4 pb-36 pt-10 sm:px-6 sm:pb-40 sm:pt-16 md:pb-16">
       <div className="mx-auto max-w-6xl">
         <Link
           href="/shop"
@@ -310,6 +310,28 @@ export default function ProductDetail({
             {renderCartMessage()}
             {renderCartAction("600ms")}
           </div>
+        </div>
+      </div>
+
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#dce9e5] bg-white/95 px-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-3 shadow-[0_-18px_40px_rgba(23,53,51,0.12)] backdrop-blur md:hidden">
+        <div className="mx-auto max-w-md">
+          <div className="mb-2 flex min-w-0 items-center justify-between gap-3">
+            <p className="min-w-0 flex-1 truncate text-xs font-semibold text-[var(--color-de-ink)]">
+              {product.name}
+            </p>
+            <p className="shrink-0 text-sm font-semibold text-[var(--color-de-ink)]">
+              ${product.price.toFixed(2)}
+            </p>
+          </div>
+
+          {error && <p className="mb-2 text-xs text-red-500">{error}</p>}
+          {added && (
+            <p className="mb-2 text-xs text-[var(--color-de-primary)]">
+              Added {quantity} to cart.
+            </p>
+          )}
+
+          {renderCartAction("0ms")}
         </div>
       </div>
     </div>

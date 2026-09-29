@@ -1,22 +1,20 @@
 import type { MetadataRoute } from "next";
+import { getPublishedLearnPages } from "@/lib/learn-pages";
 import { prisma } from "@/lib/prisma";
+import { getProductPath } from "@/lib/product-routing";
+import { getSiteUrl } from "@/lib/site-url";
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const baseUrl = getSiteUrl();
+
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
       url: `${baseUrl}/shop`,
       lastModified: new Date(),
       changeFrequency: "daily",
-      priority: 0.9,
+      priority: 1,
     },
     {
       url: `${baseUrl}/contact`,
@@ -30,12 +28,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   try {
     const products = await prisma.product.findMany({
-      select: { id: true, updatedAt: true },
+      select: { name: true, updatedAt: true },
       orderBy: { updatedAt: "desc" },
     });
 
     productPages = products.map((product) => ({
-      url: `${baseUrl}/shop/${product.id}`,
+      url: `${baseUrl}${getProductPath(product)}`,
       lastModified: product.updatedAt,
       changeFrequency: "weekly" as const,
       priority: 0.8,
@@ -44,5 +42,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Database may be unavailable during build; static routes still publish.
   }
 
-  return [...staticPages, ...productPages];
+  const learnPages = getPublishedLearnPages().map((page) => ({
+    url: `${baseUrl}/learn/${page.slug}`,
+    lastModified: page.updatedAt ? new Date(page.updatedAt) : new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
+  }));
+
+  return [...staticPages, ...productPages, ...learnPages];
 }

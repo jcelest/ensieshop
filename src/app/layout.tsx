@@ -6,6 +6,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import StripDevBrowserAttrs from "@/components/StripDevBrowserAttrs";
 import ThemeVariables from "@/components/ThemeVariables";
 import Providers from "@/components/Providers";
+import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
 const inter = Inter({
@@ -26,9 +27,31 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
   title: "EnsieShop | Everyday Product Finds",
   description:
-    "A polished dropshipping storefront for practical everyday products, fast checkout, and simple order management.",
+    "Shop EnsieShop for a focused selection of simple wellness products, including Ensie Hair Growth Accelerator with Lustriva.",
+  openGraph: {
+    title: "EnsieShop | Hair Support Products",
+    description:
+      "Shop EnsieShop for the Ensie Hair Growth Accelerator with Lustriva and a simple daily hair support routine.",
+    url: "/shop",
+    siteName: "EnsieShop",
+    type: "website",
+    images: [
+      {
+        url: "/images/ensie-hair-growth-hero.png",
+        alt: "Ensie Hair Growth Accelerator",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "EnsieShop | Hair Support Products",
+    description:
+      "Shop EnsieShop for the Ensie Hair Growth Accelerator with Lustriva and a simple daily hair support routine.",
+    images: ["/images/ensie-hair-growth-hero.png"],
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

@@ -1,9 +1,24 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
+import { getSiteUrl } from "@/lib/site-url";
+
+const contactUrl = `${getSiteUrl()}/contact`;
 
 export const metadata: Metadata = {
   title: "Contact | EnsieShop",
   description: "Contact EnsieShop for order support, product questions, and customer care.",
+  alternates: { canonical: contactUrl },
+  openGraph: {
+    title: "Contact EnsieShop",
+    description: "Contact EnsieShop for order support, product questions, and customer care.",
+    url: contactUrl,
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Contact EnsieShop",
+    description: "Contact EnsieShop for order support, product questions, and customer care.",
+  },
 };
 
 export default function ContactPage() {

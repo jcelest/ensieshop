@@ -4,6 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Message Sent | EnsieShop",
   description: "Your EnsieShop contact message has been sent.",
+  robots: { index: false, follow: false },
 };
 
 export default function ContactThanksPage() {

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { getCurrentTheme } from "@/lib/theme";
 import { shouldUseNativeImage } from "@/lib/image-display";
 import { getShopCoverImage } from "@/lib/product-images";
+import { getProductPath } from "@/lib/product-routing";
 
 interface Product {
   id: string;
@@ -22,7 +23,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <Link
-      href={`/shop/${product.id}`}
+      href={getProductPath(product)}
       className="group relative overflow-hidden rounded-lg border border-[#dce9e5] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-de-primary)]/40 hover:shadow-[0_22px_50px_rgba(23,53,51,0.12)]"
     >
       <div className="relative aspect-square overflow-hidden bg-[#eef5f2]">

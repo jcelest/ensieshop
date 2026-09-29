@@ -1,9 +1,39 @@
+import type { Metadata } from "next";
 import CampaignBanner from "@/components/CampaignBanner";
 import ProductCard from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
 import { productListOrderBy } from "@/lib/product-order";
+import { getSiteUrl } from "@/lib/site-url";
 
 export const dynamic = "force-dynamic";
+
+const shopUrl = `${getSiteUrl()}/shop`;
+const shopDescription =
+  "Shop EnsieShop for the Ensie Hair Growth Accelerator with Lustriva, a mixed-berry hair support supplement for a simple daily routine.";
+
+export const metadata: Metadata = {
+  title: "Shop Ensie Hair Growth Accelerator | EnsieShop",
+  description: shopDescription,
+  alternates: { canonical: shopUrl },
+  openGraph: {
+    title: "Shop Ensie Hair Growth Accelerator | EnsieShop",
+    description: shopDescription,
+    url: shopUrl,
+    type: "website",
+    images: [
+      {
+        url: `${getSiteUrl()}/images/ensie-hair-growth-hero.png`,
+        alt: "Ensie Hair Growth Accelerator",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shop Ensie Hair Growth Accelerator | EnsieShop",
+    description: shopDescription,
+    images: [`${getSiteUrl()}/images/ensie-hair-growth-hero.png`],
+  },
+};
 
 async function getProducts() {
   try {
@@ -23,7 +53,7 @@ export default async function ShopPage() {
       <div>
         <CampaignBanner
           src="/images/ensie-hair-growth-hero.png"
-          alt="Ensie Hair Growth Accelerator with Lustrevia"
+          alt="Ensie Hair Growth Accelerator with Lustriva"
           width={1120}
           height={1429}
         >
@@ -34,6 +64,13 @@ export default async function ShopPage() {
 
         <div className="px-4 py-10 sm:px-6 sm:py-16">
           <div className="mx-auto max-w-7xl">
+            <div className="mb-8 max-w-2xl">
+              <p className="text-sm leading-6 text-[var(--color-de-muted)]">
+                EnsieShop keeps the storefront simple with a focused selection of hair support
+                products, including Ensie Hair Growth Accelerator with Lustriva.
+              </p>
+            </div>
+
             {products.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-24 text-center">
                 <p className="mb-4 text-lg font-semibold text-[var(--color-de-muted)]">

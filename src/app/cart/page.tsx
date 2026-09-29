@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import CartPageContent from "@/components/CartPageContent";
+
+export const metadata: Metadata = {
+  title: "Cart | EnsieShop",
+  robots: { index: false, follow: false },
+};
 
 export default function CartPage() {
   return <CartPageContent />;

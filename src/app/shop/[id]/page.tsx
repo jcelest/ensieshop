@@ -1,9 +1,13 @@
-import { notFound } from "next/navigation";
-import ProductDetail from "@/components/ProductDetail";
-import { parseColorImages, parseColors, parseImageUrls } from "@/lib/product-images";
+import type { Metadata } from "next";
+import { notFound, permanentRedirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { getProductPath } from "@/lib/product-routing";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+};
 
 async function getProduct(id: string) {
   try {
@@ -23,31 +27,5 @@ export default async function ProductPage({
 
   if (!product) notFound();
 
-  const sizes = product.sizes
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
-  const colors = parseColors(product.colors);
-  const colorImages = parseColorImages(product.colorImages);
-  const images = parseImageUrls(product.imageUrls);
-
-  return (
-    <ProductDetail
-        product={{
-          id: product.id,
-          name: product.name,
-          description: product.description,
-          price: product.price,
-          category: product.category,
-          sizes: product.sizes,
-          inStock: product.inStock,
-          imageUrls: product.imageUrls,
-          colorImages: product.colorImages,
-        }}
-        images={images}
-        colors={colors}
-        colorImages={colorImages}
-        sizes={sizes}
-    />
-  );
+  permanentRedirect(getProductPath(product));
 }

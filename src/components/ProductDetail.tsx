@@ -133,6 +133,38 @@ export default function ProductDetail({
     addedTimer.current = setTimeout(() => setAdded(false), 7000);
   };
 
+  const renderCartAction = (animationDelay: string) =>
+    added ? (
+      <Link
+        href="/cart"
+        className="listing-fade-item add-to-cart-btn block w-full rounded-full border border-[var(--color-de-primary)] bg-[var(--color-de-primary)] py-4 text-center text-sm font-semibold text-white shadow-[0_14px_32px_rgba(15,143,131,0.22)] transition-transform hover:-translate-y-0.5"
+        style={{ animationDelay }}
+      >
+        VIEW CART
+      </Link>
+    ) : (
+      <button
+        type="button"
+        onClick={handleAddToCart}
+        disabled={!product.inStock}
+        className="listing-fade-item add-to-cart-btn w-full rounded-full border py-4 text-sm font-semibold text-[var(--color-de-ink)] disabled:cursor-not-allowed disabled:opacity-40"
+        style={{ animationDelay }}
+      >
+        {product.inStock ? "ADD TO CART" : "SOLD OUT"}
+      </button>
+    );
+
+  const renderCartMessage = () => (
+    <>
+      {error && <p className="mb-4 text-sm text-red-500">{error}</p>}
+      {added && (
+        <p className="mb-4 text-sm text-[var(--color-de-primary)]">
+          Added {quantity} to cart.
+        </p>
+      )}
+    </>
+  );
+
   return (
     <div className="min-h-screen bg-[#f7fbfa] px-4 py-10 sm:px-6 sm:py-16">
       <div className="mx-auto max-w-6xl">
@@ -176,6 +208,11 @@ export default function ProductDetail({
             >
               ${product.price.toFixed(2)}
             </p>
+
+            <div className="listing-fade-item mb-8" style={{ animationDelay: "360ms" }}>
+              {renderCartMessage()}
+              {renderCartAction("380ms")}
+            </div>
 
             <p
               className="listing-fade-item mb-8 whitespace-pre-line leading-relaxed text-[var(--color-de-muted)]"
@@ -270,32 +307,8 @@ export default function ProductDetail({
               )}
             </div>
 
-            {error && <p className="mb-4 text-sm text-red-500">{error}</p>}
-            {added && (
-              <p className="mb-4 text-sm text-[var(--color-de-primary)]">
-                Added {quantity} to cart.
-              </p>
-            )}
-
-            {added ? (
-              <Link
-                href="/cart"
-                className="listing-fade-item add-to-cart-btn block w-full rounded-full border border-[var(--color-de-primary)] bg-[var(--color-de-primary)] py-4 text-center text-sm font-semibold text-white shadow-[0_14px_32px_rgba(15,143,131,0.22)] transition-transform hover:-translate-y-0.5"
-                style={{ animationDelay: "600ms" }}
-              >
-                VIEW CART
-              </Link>
-            ) : (
-              <button
-                type="button"
-                onClick={handleAddToCart}
-                disabled={!product.inStock}
-                className="listing-fade-item add-to-cart-btn w-full rounded-full border py-4 text-sm font-semibold text-[var(--color-de-ink)] disabled:cursor-not-allowed disabled:opacity-40"
-                style={{ animationDelay: "600ms" }}
-              >
-                {product.inStock ? "ADD TO CART" : "SOLD OUT"}
-              </button>
-            )}
+            {renderCartMessage()}
+            {renderCartAction("600ms")}
           </div>
         </div>
       </div>

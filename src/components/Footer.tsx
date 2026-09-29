@@ -1,16 +1,14 @@
 import Link from "next/link";
 import BrandLogo from "@/components/BrandLogo";
-import { getCurrentTheme } from "@/lib/theme";
 
 export default function Footer() {
-  const theme = getCurrentTheme();
   const year = new Date().getFullYear();
 
   return (
     <footer className="relative overflow-hidden border-t border-[#dce9e5] bg-white">
       <div>
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
-          <div className="grid gap-12 md:grid-cols-3">
+          <div className="grid gap-12 md:grid-cols-2">
             <div className="flex flex-col items-center md:items-start">
               <BrandLogo className="mb-4 text-lg" />
               <p className="text-sm text-[var(--color-de-muted)]">Useful products. Clean checkout. Easy operations.</p>
@@ -44,12 +42,6 @@ export default function Footer() {
               </ul>
             </div>
 
-            <div className="text-center md:text-left">
-              <h3 className="mb-4 text-sm font-semibold text-[var(--color-de-primary)]">
-                CATALOG
-              </h3>
-              <p className="text-sm text-[var(--color-de-muted)]">{theme.name}</p>
-            </div>
           </div>
 
           <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#dce9e5] pt-8 md:flex-row">

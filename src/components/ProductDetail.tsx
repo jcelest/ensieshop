@@ -170,7 +170,7 @@ export default function ProductDetail({
             </p>
 
             <p
-              className="listing-fade-item mb-8 leading-relaxed text-[var(--color-de-muted)]"
+              className="listing-fade-item mb-8 whitespace-pre-line leading-relaxed text-[var(--color-de-muted)]"
               style={{ animationDelay: "400ms" }}
             >
               {product.description}

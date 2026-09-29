@@ -102,9 +102,12 @@ export async function POST(request: NextRequest) {
         price_data: {
           currency: "usd",
           product_data: {
-            name: line.color
-              ? `${line.name} - ${line.color} / Option ${line.size}`
-              : `${line.name} - Option ${line.size}`,
+            name: [
+              line.name,
+              [line.color, line.size ? `Option ${line.size}` : ""].filter(Boolean).join(" / "),
+            ]
+              .filter(Boolean)
+              .join(" - "),
             images: [image],
           },
           unit_amount: Math.round(line.price * 100),

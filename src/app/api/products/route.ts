@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         description,
         price: parseFloat(price),
         category: category || "desk organizer",
-        sizes: sizes || "Standard,Bundle",
+        sizes: String(sizes ?? "").trim(),
         imageUrls: serializeImageUrls(urls),
         featured: featured ?? false,
         inStock: inStock ?? true,

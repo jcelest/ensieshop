@@ -57,7 +57,7 @@ export async function validateCheckoutItems(
   const lines: ValidatedCheckoutLine[] = [];
 
   for (const item of items) {
-    if (!item.productId || !item.size || item.quantity < 1) {
+    if (!item.productId || item.quantity < 1) {
       return { ok: false, error: "Invalid cart item" };
     }
 
@@ -73,9 +73,14 @@ export async function validateCheckoutItems(
       return { ok: false, error: `${product.name} is sold out` };
     }
 
-    const availableSizes = product.sizes.split(",").map((s) => s.trim());
-    if (!availableSizes.includes(item.size)) {
-      return { ok: false, error: `Option ${item.size} is not available for ${product.name}` };
+    const size = String(item.size || "").trim();
+    const availableSizes = product.sizes
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    if (availableSizes.length > 0 && !availableSizes.includes(size)) {
+      return { ok: false, error: `Option ${size || "(none)"} is not available for ${product.name}` };
     }
 
     const availableColors = parseColors(product.colors);
@@ -96,7 +101,7 @@ export async function validateCheckoutItems(
     lines.push({
       productId: product.id,
       name: product.name,
-      size: item.size,
+      size: availableSizes.length > 0 ? size : "",
       color,
       price: product.price,
       quantity: item.quantity,

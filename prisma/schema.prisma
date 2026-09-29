@@ -13,7 +13,7 @@ model Product {
   description String
   price       Float
   category    String   @default("desk organizer")
-  sizes       String   @default("Standard,Bundle")
+  sizes       String   @default("")
   colors      String   @default("")
   colorImages String   @default("{}")
   imageUrls   String

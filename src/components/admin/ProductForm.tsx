@@ -47,7 +47,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
   const [description, setDescription] = useState(product?.description || "");
   const [price, setPrice] = useState(product?.price?.toString() || "");
   const [category, setCategory] = useState(product?.category || "desk organizer");
-  const [sizes, setSizes] = useState(product?.sizes || "Standard,Bundle");
+  const [sizes, setSizes] = useState(product?.sizes ?? "");
   const [colorsInput, setColorsInput] = useState(product?.colors || "");
   const [featured, setFeatured] = useState(product?.featured || false);
   const [inStock, setInStock] = useState(product?.inStock ?? true);
@@ -298,12 +298,13 @@ export default function ProductForm({ product, onSuccess, onCancel }: ProductFor
           </div>
 
           <div>
-            <label className="mb-1 block text-xs tracking-widest text-white/50">
-              OPTIONS (comma-separated)
+              <label className="mb-1 block text-xs tracking-widest text-white/50">
+              OPTIONS (optional, comma-separated)
             </label>
             <input
               value={sizes}
               onChange={(e) => setSizes(e.target.value)}
+              placeholder="Leave blank for no options"
               className="w-full border border-white/20 bg-black px-4 py-2 text-white outline-none focus:border-[var(--color-de-primary)]"
             />
           </div>

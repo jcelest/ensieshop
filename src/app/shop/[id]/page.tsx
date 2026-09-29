@@ -23,7 +23,10 @@ export default async function ProductPage({
 
   if (!product) notFound();
 
-  const sizes = product.sizes.split(",").map((s) => s.trim());
+  const sizes = product.sizes
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
   const colors = parseColors(product.colors);
   const colorImages = parseColorImages(product.colorImages);
   const images = parseImageUrls(product.imageUrls);

@@ -211,7 +211,13 @@ export default function AdminOrders() {
               {order.items.map((item) => (
                 <p key={item.id} className="text-sm text-white/70">
                   {item.name}
-                  {item.color ? ` - ${item.color}` : ""} - Option {item.size} x {item.quantity} ($
+                  {[
+                    item.name,
+                    item.color,
+                    item.size ? `Option ${item.size}` : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" - ")} x {item.quantity} ($
                   {item.price.toFixed(2)})
                 </p>
               ))}

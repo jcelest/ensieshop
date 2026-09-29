@@ -342,7 +342,10 @@ export default function CheckoutPageContent() {
                   </p>
                   {group.lines.map((line) => (
                     <p key={line.lineId} className="text-xs text-[var(--color-de-muted)]">
-                      Option {line.size} x {line.quantity}
+                      {[line.color, line.size ? `Option ${line.size}` : ""]
+                        .filter(Boolean)
+                        .join(" / ") || "Item"}{" "}
+                      x {line.quantity}
                     </p>
                   ))}
                 </div>

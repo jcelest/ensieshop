@@ -105,9 +105,13 @@ export default function CartPageContent() {
                       key={item.lineId}
                       className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:gap-4"
                     >
-                      <p className="text-sm text-[var(--color-de-muted)]">
-                        {item.color ? `${item.color} / ` : ""}Option {item.size}
-                      </p>
+                      {(item.color || item.size) && (
+                        <p className="text-sm text-[var(--color-de-muted)]">
+                          {[item.color, item.size ? `Option ${item.size}` : ""]
+                            .filter(Boolean)
+                            .join(" / ")}
+                        </p>
+                      )}
 
                       <div className="flex items-center gap-3">
                         <button

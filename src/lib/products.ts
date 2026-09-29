@@ -41,7 +41,7 @@ export async function parseAdminProductPayload(
     description: String(body.description || "").trim(),
     price: parseFloat(String(body.price || "0")),
     category: String(body.category || "desk organizer").trim(),
-    sizes: String(body.sizes || "Standard,Bundle").trim(),
+    sizes: String(body.sizes ?? "").trim(),
     colors: serializeColors(parseColors(String(body.colors || ""))),
     featured: Boolean(body.featured),
     inStock: body.inStock !== false,
@@ -110,7 +110,7 @@ export async function parseProductFormData(request: NextRequest) {
   const description = String(formData.get("description") || "").trim();
   const price = parseFloat(String(formData.get("price") || "0"));
   const category = String(formData.get("category") || "desk organizer").trim();
-  const sizes = String(formData.get("sizes") || "Standard,Bundle").trim();
+  const sizes = String(formData.get("sizes") ?? "").trim();
   const colors = serializeColors(parseColors(String(formData.get("colors") || "")));
   const featured = formData.get("featured") === "true" || formData.get("featured") === "on";
   const inStock = formData.get("inStock") !== "false" && formData.get("inStock") !== "off";

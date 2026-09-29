@@ -43,7 +43,7 @@ function orderItemsHtml(items: OrderItem[]): string {
         <tr>
           <td style="padding:12px 0;border-bottom:1px solid #dce9e5;color:#173533;font-size:14px;line-height:1.5;">
             ${item.name}${item.color ? ` <span style="color:#58706c;">(${item.color})</span>` : ""}
-            <br><span style="color:#58706c;font-size:12px;">Option ${item.size} - Qty ${item.quantity}</span>
+            <br><span style="color:#58706c;font-size:12px;">${item.size ? `Option ${item.size} - ` : ""}Qty ${item.quantity}</span>
           </td>
           <td style="padding:12px 0;border-bottom:1px solid #dce9e5;color:#173533;font-size:14px;text-align:right;vertical-align:top;">
             ${formatMoney(item.price * item.quantity)}

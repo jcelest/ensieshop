@@ -43,6 +43,7 @@ export default function ProductDetail({
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [error, setError] = useState("");
+  const hasOptions = sizes.length > 0;
 
   const galleryImages = useMemo(
     () => getGalleryImages(images, colorImages, colors),
@@ -63,9 +64,11 @@ export default function ProductDetail({
     getCoverImage(images, colorImages, selectedColor) ||
     getShopCoverImage(product.imageUrls, product.colorImages);
 
-  const inCartQty = selectedSize
-    ? getQuantity(product.id, selectedSize, selectedColor || "")
-    : 0;
+  const selectedOption = hasOptions ? selectedSize : "";
+  const inCartQty =
+    !hasOptions || selectedSize
+      ? getQuantity(product.id, selectedOption || "", selectedColor || "")
+      : 0;
 
   useEffect(() => {
     setQuantity(1);
@@ -97,7 +100,7 @@ export default function ProductDetail({
       return;
     }
 
-    if (!selectedSize) {
+    if (hasOptions && !selectedSize) {
       setError("Select an option before adding to cart");
       return;
     }
@@ -111,7 +114,7 @@ export default function ProductDetail({
       productId: product.id,
       name: product.name,
       price: product.price,
-      size: selectedSize,
+      size: selectedOption || "",
       color: selectedColor || "",
       imageUrl: activeImage,
       quantity,
@@ -198,6 +201,7 @@ export default function ProductDetail({
               </div>
             )}
 
+            {hasOptions && (
             <div className="listing-fade-item mb-6" style={{ animationDelay: "480ms" }}>
               <p className="mb-3 text-xs font-semibold text-[var(--color-de-muted)]">OPTION</p>
               <div className="flex flex-wrap gap-2">
@@ -229,6 +233,7 @@ export default function ProductDetail({
                 })}
               </div>
             </div>
+            )}
 
             <div className="listing-fade-item mb-8" style={{ animationDelay: "520ms" }}>
               <p className="mb-3 text-xs font-semibold text-[var(--color-de-muted)]">QUANTITY</p>
@@ -249,10 +254,10 @@ export default function ProductDetail({
                   +
                 </button>
               </div>
-              {selectedSize && inCartQty > 0 && (
+              {(!hasOptions || selectedSize) && inCartQty > 0 && (
                 <p className="mt-2 text-xs text-[var(--color-de-muted)]">
                   {selectedColor ? `${selectedColor} / ` : ""}
-                  {selectedSize} already has {inCartQty} in your cart
+                  {hasOptions ? `${selectedSize} already has` : "This item already has"} {inCartQty} in your cart
                 </p>
               )}
             </div>

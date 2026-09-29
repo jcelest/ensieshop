@@ -31,7 +31,7 @@ export function loadCartFromStorage(): CartItem[] {
         productId: String(item.productId),
         name: String(item.name),
         price: Number(item.price),
-        size: String(item.size),
+        size: String(item.size || ""),
         color: String(item.color || ""),
         imageUrl: String(item.imageUrl),
         quantity: Math.max(1, Number(item.quantity) || 1),

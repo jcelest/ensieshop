@@ -31,6 +31,9 @@ export const metadata: Metadata = {
   title: "EnsieShop | Everyday Product Finds",
   description:
     "Shop EnsieShop for a focused selection of simple wellness products, including Ensie Hair Growth Accelerator with Lustriva.",
+  verification: {
+    google: "WjFxaDMTpiS6KS0UNSoBdEtpdPgRxE3zeB-84CT1rkw",
+  },
   openGraph: {
     title: "EnsieShop | Hair Support Products",
     description:

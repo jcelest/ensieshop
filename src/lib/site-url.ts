@@ -3,13 +3,11 @@ export function getSiteUrl(): string {
     url.replace(/\/$/, "").replace(/^https:\/\/ensieshop\.com$/i, "https://www.ensieshop.com");
 
   if (process.env.NEXT_PUBLIC_SITE_URL) {
-    return normalize(process.env.NEXT_PUBLIC_SITE_URL);
+    const configuredUrl = normalize(process.env.NEXT_PUBLIC_SITE_URL);
+    if (!configuredUrl.includes(".vercel.app")) {
+      return configuredUrl;
+    }
   }
-  if (process.env.VERCEL_ENV === "production") {
-    return "https://www.ensieshop.com";
-  }
-  if (process.env.VERCEL_URL) {
-    return normalize(`https://${process.env.VERCEL_URL}`);
-  }
+
   return "https://www.ensieshop.com";
 }

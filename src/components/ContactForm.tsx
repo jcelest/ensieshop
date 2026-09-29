@@ -1,27 +1,18 @@
+const contactEmail = "ecelesister@gmail.com";
 const successUrl = "https://www.ensieshop.com/contact/thanks";
 
 export default function ContactForm() {
-  const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-
-  if (!accessKey) {
-    return (
-      <div className="border border-[#e56d46]/30 bg-[#e56d46]/10 px-4 py-3 text-sm text-[#9a3f24]">
-        Contact form is not configured yet.
-      </div>
-    );
-  }
-
   return (
     <form
-      action="https://api.web3forms.com/submit"
+      action={`https://formsubmit.co/${contactEmail}`}
       method="POST"
       className="grid gap-5"
     >
-      <input type="hidden" name="access_key" value={accessKey} />
-      <input type="hidden" name="from_name" value="EnsieShop Contact Form" />
-      <input type="hidden" name="subject" value="New EnsieShop contact message" />
-      <input type="hidden" name="redirect" value={successUrl} />
-      <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" />
+      <input type="hidden" name="_subject" value="New EnsieShop contact message" />
+      <input type="hidden" name="_next" value={successUrl} />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
 
       <div className="grid gap-2">
         <label htmlFor="name" className="text-xs font-semibold uppercase text-[var(--color-de-primary)]">

@@ -23,6 +23,23 @@ function parseFromAddress(): { email: string; name: string } {
   return { name: "EnsieShop", email: raw.trim() };
 }
 
+export function isEmailConfigured(): boolean {
+  return Boolean(process.env.SENDGRID_API_KEY);
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function nl2br(value: string): string {
+  return escapeHtml(value).replace(/\r?\n/g, "<br>");
+}
+
 function formatMoney(amount: number): string {
   return `$${amount.toFixed(2)}`;
 }
@@ -192,6 +209,58 @@ async function sendEmail(to: string, subject: string, html: string): Promise<voi
 
   const from = parseFromAddress();
   await client.send({ to, from, subject, html });
+}
+
+async function sendRequiredEmail(to: string, subject: string, html: string): Promise<void> {
+  const client = getSendGrid();
+  if (!client) {
+    throw new Error("SENDGRID_API_KEY is not configured");
+  }
+
+  const from = parseFromAddress();
+  await client.send({ to, from, subject, html });
+}
+
+export async function sendContactNotificationEmail(input: {
+  name: string;
+  email: string;
+  orderNumber?: string;
+  message: string;
+}): Promise<void> {
+  const to = process.env.CONTACT_TO_EMAIL || "ecelesister@gmail.com";
+  const contentHtml = `
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+      <tr>
+        <td style="padding:10px 0;color:#58706c;font-size:13px;width:120px;">Name</td>
+        <td style="padding:10px 0;color:#173533;font-size:14px;">${escapeHtml(input.name)}</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 0;color:#58706c;font-size:13px;">Email</td>
+        <td style="padding:10px 0;color:#173533;font-size:14px;">
+          <a href="mailto:${escapeHtml(input.email)}" style="color:#0f8f83;">${escapeHtml(input.email)}</a>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:10px 0;color:#58706c;font-size:13px;">Order</td>
+        <td style="padding:10px 0;color:#173533;font-size:14px;">${escapeHtml(input.orderNumber || "Not provided")}</td>
+      </tr>
+    </table>
+    <div style="margin-top:22px;padding:18px;border:1px solid #dce9e5;background-color:#f7fbfa;color:#173533;font-size:14px;line-height:1.7;">
+      ${nl2br(input.message)}
+    </div>
+  `;
+
+  await sendRequiredEmail(
+    to,
+    `EnsieShop contact from ${input.name}`,
+    brandEmailHtml({
+      preheader: `New EnsieShop contact message from ${input.name}.`,
+      eyebrow: "Contact Form",
+      title: "New Contact Message",
+      intro: "A customer submitted the EnsieShop contact form.",
+      contentHtml,
+    })
+  );
 }
 
 export async function sendOrderConfirmationEmail(order: OrderWithItems): Promise<void> {

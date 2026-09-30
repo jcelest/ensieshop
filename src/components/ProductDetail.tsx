@@ -29,6 +29,88 @@ interface ProductDetailProps {
   sizes: string[];
 }
 
+function ProductTrustBadges() {
+  return (
+    <div className="listing-fade-item mb-6 grid gap-3 sm:grid-cols-2" style={{ animationDelay: "340ms" }}>
+      <div className="group relative overflow-hidden rounded-lg border border-[#ffd6b8] bg-[#fff7f0] p-4 shadow-sm">
+        <div className="absolute right-0 top-0 h-16 w-16 translate-x-5 -translate-y-5 rounded-full bg-[#ff6b2c]/10" />
+        <div className="relative flex items-center gap-3">
+          <svg
+            viewBox="0 0 64 64"
+            aria-hidden="true"
+            className="h-12 w-12 shrink-0 text-[#f05a28]"
+          >
+            <path
+              d="M31.2 5.6c6.5 7.1 5.6 14.3 3.1 20.1 3.9-2.7 6.5-6.7 7.4-11.7 8.2 8 10.4 17.7 6.5 27-3 7.1-9.9 11.4-17.2 11.4-8.7 0-15.6-5.1-17.7-12.8-2.2-8.1 1-16.3 8.7-22.1.5 4.7 2.3 8.2 5.4 10.6 2.2-6.3 1.7-13.3 3.8-22.5Z"
+              fill="currentColor"
+              opacity="0.18"
+            />
+            <path
+              d="M31.2 5.6c6.5 7.1 5.6 14.3 3.1 20.1 3.9-2.7 6.5-6.7 7.4-11.7 8.2 8 10.4 17.7 6.5 27-3 7.1-9.9 11.4-17.2 11.4-8.7 0-15.6-5.1-17.7-12.8-2.2-8.1 1-16.3 8.7-22.1.5 4.7 2.3 8.2 5.4 10.6 2.2-6.3 1.7-13.3 3.8-22.5Z"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M29.5 34.4c2.2-2.2 3.6-5.2 4.1-9.1 4.9 4.8 6.2 10.2 3.9 15.3-1.4 3.1-4.2 5.1-7.4 5.1-3.8 0-6.8-2.2-7.7-5.7-.8-3.2.3-6.4 3.1-9 1 1.9 2.3 3.1 4 3.4Z"
+              fill="currentColor"
+            />
+          </svg>
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#f05a28]">
+              Hot
+            </p>
+            <p className="text-sm font-semibold leading-snug text-[var(--color-de-ink)]">
+              Customer favorite
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="group relative overflow-hidden rounded-lg border border-[#cfe8df] bg-white p-4 shadow-sm">
+        <div className="absolute right-0 top-0 h-16 w-16 translate-x-5 -translate-y-5 rounded-full bg-[var(--color-de-primary)]/10" />
+        <div className="relative flex items-center gap-3">
+          <svg
+            viewBox="0 0 64 64"
+            aria-hidden="true"
+            className="h-12 w-12 shrink-0 text-[var(--color-de-primary)]"
+          >
+            <path
+              d="M32 5.5 51 13v14.8c0 12.8-7.7 24.3-19 29.1-11.3-4.8-19-16.3-19-29.1V13l19-7.5Z"
+              fill="currentColor"
+              opacity="0.14"
+            />
+            <path
+              d="M32 5.5 51 13v14.8c0 12.8-7.7 24.3-19 29.1-11.3-4.8-19-16.3-19-29.1V13l19-7.5Z"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M22.5 32.2 29 38.7 42.5 25"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-de-primary)]">
+              Money Back Guarantee
+            </p>
+            <p className="text-sm font-semibold leading-snug text-[var(--color-de-ink)]">
+              14-day defect support
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ProductDetail({
   product,
   images,
@@ -208,6 +290,8 @@ export default function ProductDetail({
             >
               ${product.price.toFixed(2)}
             </p>
+
+            <ProductTrustBadges />
 
             <div className="listing-fade-item mb-8" style={{ animationDelay: "360ms" }}>
               {renderCartMessage()}
